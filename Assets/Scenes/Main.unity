@@ -260,6 +260,7 @@ MonoBehaviour:
   isOnFloor: 0
   isLaser: 0
   isFired: 0
+  canLaser: 0
   laser: {fileID: 306669109}
   savedVelocity: {x: 0, y: 0}
   sprite: {fileID: 182015099}
@@ -607,7 +608,7 @@ Prefab:
     - target: {fileID: 114444849613088544, guid: 73ea84d3100f3ad4983b4746a9e3ace9,
         type: 2}
       propertyPath: pushSpeed
-      value: 2.5
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 73ea84d3100f3ad4983b4746a9e3ace9, type: 2}

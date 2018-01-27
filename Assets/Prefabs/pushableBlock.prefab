@@ -102,8 +102,8 @@ MonoBehaviour:
   playerSprite: {fileID: 0}
   blockSprite: {fileID: 212338265353465924}
   pushSpeed: 5
-  pushStartTime: 0.5
-  maxMoveDistance: 0.01
+  pushStartTime: 0
+  maxMoveDistance: 0.02
   pushed: 0
   xChange: 0
 --- !u!212 &212338265353465924
