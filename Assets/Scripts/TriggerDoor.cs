@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TriggerDoor : MonoBehaviour {
 
+    public string newScene;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,8 +17,7 @@ public class TriggerDoor : MonoBehaviour {
 	}
     private void OnTriggerEnter2D(Collider2D other)
     {
-        other.transform.position = new Vector3(0f,0f,0f);
-        Debug.Log("ds");
+        SceneManager.LoadScene(newScene);
     }
     private void OnTriggerExit(Collider other)
     {
