@@ -15,10 +15,17 @@ public class PlayerMoveScript : MonoBehaviour {
     public float maxLandDistance;
     public float maxMoveDistance;
     public Rigidbody2D body;
-    public Collider playerCollider;
+    public Collider2D playerCollider;
 
     public bool isOnFloor;
     private int xChange;
+
+    public bool isLaser;
+    public bool isFired;
+
+    public GameObject laser;
+
+    public Vector2 savedVelocity;
 
     //left and right checkers
     private bool leftBlock;
@@ -31,19 +38,33 @@ public class PlayerMoveScript : MonoBehaviour {
         isOnFloor = false;
 
         body.freezeRotation = true;
+
+        laser.SetActive(false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        float dT = Time.deltaTime;
+        if (!isLaser)
+        {
+            float dT = Time.deltaTime;
 
-        CheckColliders();
+            CheckColliders();
 
-        GetInput();
+            GetInput();
 
-        Accelerate(dT);
+            Accelerate(dT);
 
-        Move(dT);
+            Move(dT);
+        }
+        else
+        {
+            if(!isFired && Input.GetKeyUp(KeyCode.Space))
+            {
+                isLaser = false;
+                body.isKinematic = false;
+                body.velocity = savedVelocity;
+            }
+        }
 	}
 
     private void CheckColliders()
@@ -93,6 +114,8 @@ public class PlayerMoveScript : MonoBehaviour {
 
     private void GetInput()
     {
+
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             xChange = -1;
@@ -100,6 +123,14 @@ public class PlayerMoveScript : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.D))
         {
             xChange = 1;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isLaser = true;
+            body.isKinematic = true;
+            savedVelocity = body.velocity;
+            body.velocity = Vector2.zero;
+
         }
 
         if (Input.GetKeyUp(KeyCode.A))
@@ -127,6 +158,8 @@ public class PlayerMoveScript : MonoBehaviour {
             }
 
         }
+        
+        
         
 
 
