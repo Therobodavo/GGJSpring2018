@@ -19,16 +19,12 @@ public class PlayerMoveScript : MonoBehaviour {
     public bool isOnFloor;
     private int xChange;
 
-    public float jumpDelay;
-    private float sinceJump;
-    private bool canJump;
-
 	// Use this for initialization
 	void Start () {
         xChange = 0;
         isOnFloor = false;
-        sinceJump = 0;
-        canJump = true;
+
+        body.freezeRotation = true;
 	}
 	
 	// Update is called once per frame
@@ -37,28 +33,12 @@ public class PlayerMoveScript : MonoBehaviour {
 
         CheckColliders();
 
-        CheckJump(dT);
-
         GetInput();
 
         Accelerate(dT);
 
         Move(dT);
 	}
-
-    private void CheckJump(float dT)
-    {
-        if (!canJump)
-        {
-            sinceJump += dT;
-
-            if(sinceJump >= jumpDelay)
-            {
-                canJump = true;
-                sinceJump = 0;
-            }
-        }
-    }
 
     private void CheckColliders()
     {
@@ -114,11 +94,10 @@ public class PlayerMoveScript : MonoBehaviour {
         
 
 
-        if(isOnFloor && Input.GetKey(KeyCode.W))
+        if(body.velocity.y <= 0 && isOnFloor && Input.GetKey(KeyCode.W))
         {
             body.AddForce(new Vector2(0, jumpForce));
-
-            canJump = false;
+            body.velocity = new Vector2(body.velocity.x, .01f);
         }
     }
 
