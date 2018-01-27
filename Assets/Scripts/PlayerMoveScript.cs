@@ -189,16 +189,20 @@ public class PlayerMoveScript : MonoBehaviour {
             }
 
         }
-        
-        
-        
 
 
-        if(body.velocity.y <= 0 && isOnFloor && Input.GetKey(KeyCode.W))
+
+
+        if (!isLaser)
         {
-            body.AddForce(new Vector2(0, jumpForce));
-            body.velocity = new Vector2(body.velocity.x, .01f);
+
+            if (body.velocity.y <= 0 && isOnFloor && Input.GetKey(KeyCode.W))
+            {
+                body.AddForce(new Vector2(0, jumpForce));
+                body.velocity = new Vector2(body.velocity.x, .01f);
+            }
         }
+        
     }
 
     private void Accelerate(float dT)

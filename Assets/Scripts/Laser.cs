@@ -30,6 +30,7 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = -1f;
                     yChange = 0;
+                    print("left");
 
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
@@ -38,6 +39,7 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = 1f;
                     yChange = 0;
+                    print("right");
 
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
@@ -46,6 +48,7 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = 0;
                     yChange = 1f;
+                    print("up");
 
                     transform.eulerAngles = new Vector3(0, 0, 90);
                 }
@@ -54,6 +57,7 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = 0;
                     yChange = -1f;
+                    print("down");
 
                     transform.eulerAngles = new Vector3(0, 0, 90);
                 }
@@ -72,9 +76,78 @@ public class Laser : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if(other.tag == "Mirror"){
+            int rotation = (int) other.transform.eulerAngles.z;
+            switch (rotation)
+            {
+                case 0:
+                    if(xChange == -1)
+                    {
+                        xChange = 0;
+                        yChange = 1;
+                        transform.eulerAngles = new Vector3(0, 0, 90);
+                        return;
+                    }
+                    if(yChange == -1)
+                    {
+                        xChange = 1;
+                        yChange = 0;
+                        transform.eulerAngles = new Vector3(0, 0, 0);
+                        return;
+                    }
+                    break;
+                case 90:
+                    if(xChange == 1)
+                    {
+                        xChange = 0;
+                        yChange = 1;
+                        transform.eulerAngles = new Vector3(0, 0, 90);
+                        return;
+                    }
+                    if(yChange == -1)
+                    {
+                        xChange = 1;
+                        yChange = 0;
+                        transform.eulerAngles = new Vector3(0, 0, 0);
+                        return;
+                    }
+                    break;
+                case 180:
+                    if(xChange == 1)
+                    {
+                        xChange = 0;
+                        yChange = -1;
+                        transform.eulerAngles = new Vector3(0, 0, 90);
+                        return;
+                    }
+                    if(yChange == 1)
+                    {
+                        xChange = -1;
+                        yChange = 0;
+                        transform.eulerAngles = new Vector3(0, 0, 0);
+                        return;
+                    }
+                    break;
+                case 270:
+                    if(xChange == -1)
+                    {
+                        xChange = 0;
+                        yChange = -1;
+                        transform.eulerAngles = new Vector3(0, 0, 90);
+                        return;
+                    }
+                    if(yChange == 1)
+                    {
+                        xChange = 1;
+                        yChange = 0;
+                        transform.eulerAngles = new Vector3(0, 0, 0);
+                        return;
+                    }
+                    break;
+            }
+        }
         if(other.tag != "Transparent")
         {
-            print(other.name);
             script.EndLaser(true);
         }
     }
