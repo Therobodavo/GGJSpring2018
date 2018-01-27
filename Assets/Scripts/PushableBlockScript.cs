@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PushableBlockScript : MonoBehaviour {
 
-    public SpriteRenderer playerSprite;
+    public Collider2D playerSprite;
     public SpriteRenderer blockSprite;
     public float pushSpeed;
     public float pushStartTime;
