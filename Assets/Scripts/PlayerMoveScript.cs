@@ -48,8 +48,8 @@ public class PlayerMoveScript : MonoBehaviour {
 
     private void CheckColliders()
     {
-        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x - .01f, transform.position.y - .01f), -Vector3.up, maxLandDistance) || 
-            Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x + .01f, transform.position.y - .01f), -Vector3.up, maxLandDistance) ||
+        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x - .05f, transform.position.y - .05f), -Vector3.up, maxLandDistance) || 
+            Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x + .05f, transform.position.y - .05f), -Vector3.up, maxLandDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - .01f), -Vector3.up, maxLandDistance))
         {
             if (!isOnFloor)
