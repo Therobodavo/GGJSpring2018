@@ -73,11 +73,11 @@ public class PlayerMoveScript : MonoBehaviour {
         }
 	}
 
-    private void EndLaser()
+    public void EndLaser()
     {
         isLaser = false;
         isFired = false;
-        body.isKinematic = false;
+        body.gravityScale = 1.5f;
         body.velocity = savedVelocity;
         sprite.enabled = true;
         playerCollider.enabled = true;
@@ -144,7 +144,7 @@ public class PlayerMoveScript : MonoBehaviour {
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             isLaser = true;
-            body.isKinematic = true;
+            body.gravityScale = 0;
             savedVelocity = body.velocity;
             body.velocity = Vector2.zero;
             sprite.enabled = false;

@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 182015101}
   - component: {fileID: 182015102}
   - component: {fileID: 182015098}
-  - component: {fileID: 182015103}
   m_Layer: 0
   m_Name: me
   m_TagString: Untagged
@@ -264,18 +263,6 @@ MonoBehaviour:
   laser: {fileID: 306669109}
   savedVelocity: {x: 0, y: 0}
   sprite: {fileID: 182015099}
---- !u!114 &182015103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 182015097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c80422ee1fd060440806e47920e1fb12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  script: {fileID: 182015102}
 --- !u!1001 &253224072
 Prefab:
   m_ObjectHideFlags: 0
@@ -328,6 +315,7 @@ GameObject:
   - component: {fileID: 306669112}
   - component: {fileID: 306669111}
   - component: {fileID: 306669110}
+  - component: {fileID: 306669113}
   m_Layer: 0
   m_Name: laser2
   m_TagString: Untagged
@@ -417,6 +405,20 @@ Transform:
   m_Father: {fileID: 182015100}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &306669113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 306669109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80422ee1fd060440806e47920e1fb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script: {fileID: 182015102}
+  player: {fileID: 182015097}
+  laserSpeed: 10
 --- !u!1 &336190844 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1600492204901726, guid: 9fda5d077686ec6499a36f4ae562ab16,
@@ -500,7 +502,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 355762325}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 10.5, z: 0}
+  m_LocalPosition: {x: 0.07, y: 15.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -766,7 +768,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1.8814154}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -777,7 +779,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 25}
+  m_Size: {x: 1, y: 28.76283}
   m_EdgeRadius: 0
 --- !u!4 &721260995
 Transform:
@@ -820,7 +822,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 2.609705}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -831,7 +833,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 25}
+  m_Size: {x: 1, y: 30.21941}
   m_EdgeRadius: 0
 --- !u!4 &734625728
 Transform:
@@ -1035,7 +1037,7 @@ Prefab:
     - target: {fileID: 61779290082723052, guid: bc63fb6b40467b44d82f253dc5682a36,
         type: 2}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 61779290082723052, guid: bc63fb6b40467b44d82f253dc5682a36,
         type: 2}

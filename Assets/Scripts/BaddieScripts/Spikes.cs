@@ -16,10 +16,14 @@ public class Spikes : MonoBehaviour {
 	void Update () {
 		
 	}
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         PlayerMoveScript pScript = (PlayerMoveScript)player.GetComponent("PlayerMoveScript");
-        pScript.transform.position = pScript.sPos;
+
+        if (!pScript.isLaser)
+        {
+            pScript.transform.position = pScript.sPos;
+        }
         
     }
     private void OnTriggerExit(Collider other)
