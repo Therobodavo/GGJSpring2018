@@ -168,9 +168,9 @@ GameObject:
   m_PrefabParentObject: {fileID: 1549387679477576, guid: 26387482c6bfd0448b725e0a65f0036d,
     type: 2}
   m_PrefabInternal: {fileID: 1075312883}
---- !u!212 &182015099 stripped
-SpriteRenderer:
-  m_PrefabParentObject: {fileID: 212301431061697768, guid: 26387482c6bfd0448b725e0a65f0036d,
+--- !u!61 &182015101 stripped
+BoxCollider2D:
+  m_PrefabParentObject: {fileID: 61999661471460104, guid: 26387482c6bfd0448b725e0a65f0036d,
     type: 2}
   m_PrefabInternal: {fileID: 1075312883}
 --- !u!1001 &253224072
@@ -397,7 +397,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8b2a9ff6d001fb349a925bfc79d571ef, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 22f2dc6b1b1885348baf49b238be5443, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -414,8 +414,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 397038404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.27, y: -8.96, z: 0}
-  m_LocalScale: {x: 4.9100184, y: 4.9100184, z: 4.9100184}
+  m_LocalPosition: {x: 8.63, y: -12.25, z: 0}
+  m_LocalScale: {x: 0.24236874, y: 0.24236874, z: 0.24236874}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 21
@@ -436,14 +436,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.4, y: 0.4}
+    oldSize: {x: 10.4, y: 10.4}
     newSize: {x: 0.4, y: 0.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4, y: 0.4}
+  m_Size: {x: 10.4, y: 10.4}
   m_EdgeRadius: 0
 --- !u!1001 &446723797
 Prefab:
@@ -488,7 +488,7 @@ Prefab:
         type: 2}
       propertyPath: playerSprite
       value: 
-      objectReference: {fileID: 182015099}
+      objectReference: {fileID: 182015101}
     - target: {fileID: 212338265353465924, guid: 73ea84d3100f3ad4983b4746a9e3ace9,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -1500,6 +1500,16 @@ Prefab:
     - target: {fileID: 4365626076065032, guid: c313ea3ed5ca63941a2d1cecc9a2798f, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 61570739674102714, guid: c313ea3ed5ca63941a2d1cecc9a2798f,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 61570739674102714, guid: c313ea3ed5ca63941a2d1cecc9a2798f,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c313ea3ed5ca63941a2d1cecc9a2798f, type: 2}

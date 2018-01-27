@@ -43,6 +43,7 @@ public class PlayerMoveScript : MonoBehaviour {
     public SpriteRenderer[] mirrorSprites;
 
     public SpriteRenderer sprite;
+
 	// Use this for initialization
 	void Start () {
         xChange = 0;
@@ -113,8 +114,8 @@ public class PlayerMoveScript : MonoBehaviour {
 
     private void CheckColliders()
     {
-        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x - .05f, transform.position.y - .05f), -Vector3.up, maxLandDistance) || 
-            Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x + .05f, transform.position.y - .05f), -Vector3.up, maxLandDistance) ||
+        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x - .05f, transform.position.y - .05f), -Vector3.up, maxLandDistance) || 
+            Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x + .05f, transform.position.y - .05f), -Vector3.up, maxLandDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - .01f), -Vector3.up, maxLandDistance))
         {
             if (!isOnFloor)
@@ -131,9 +132,9 @@ public class PlayerMoveScript : MonoBehaviour {
             isOnFloor = false;
         }
 
-        if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x - .01f, transform.position.y + .1f), -Vector3.right, maxMoveDistance) ||
-            Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x - .01f, transform.position.y + .5f * sprite.bounds.size.y), -Vector3.right, maxMoveDistance) ||
-            Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x - .01f, transform.position.y + sprite.bounds.size.y - .1f), -Vector3.right, maxMoveDistance))
+        if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .1f), -Vector3.right, maxMoveDistance) ||
+            Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .5f * playerCollider.bounds.size.y), -Vector3.right, maxMoveDistance) ||
+            Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + playerCollider.bounds.size.y - .1f), -Vector3.right, maxMoveDistance))
         {
             if (!leftBlock)
             {
@@ -144,10 +145,10 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             leftBlock = false;
         }
-        //print(sprite.bounds.size.x);
-        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y + .1f), Vector3.right, maxMoveDistance) ||
-            Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y + .5f * sprite.bounds.size.y), Vector3.right, maxMoveDistance) ||
-            Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y + sprite.bounds.size.y - .1f), Vector3.right, maxMoveDistance))
+        //print(playerCollider.bounds.size.x);
+        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x + .01f, transform.position.y + .1f), Vector3.right, maxMoveDistance) ||
+            Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x + .01f, transform.position.y + .5f * playerCollider.bounds.size.y), Vector3.right, maxMoveDistance) ||
+            Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x + .01f, transform.position.y + playerCollider.bounds.size.y - .1f), Vector3.right, maxMoveDistance))
         {
             if (!rightBlock)
             {
@@ -164,9 +165,9 @@ public class PlayerMoveScript : MonoBehaviour {
             switch ((int)mirrors[i].transform.eulerAngles.z)
             {
                 case 0:
-                    if(mirrorSprites[i].bounds.min.x > sprite.bounds.min.x && mirrorSprites[i].bounds.min.x < sprite.bounds.max.x)
+                    if(mirrorSprites[i].bounds.min.x > playerCollider.bounds.min.x && mirrorSprites[i].bounds.min.x < playerCollider.bounds.max.x)
                     {
-                        if (mirrorSprites[i].bounds.max.y < sprite.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > sprite.bounds.min.y)
+                        if (mirrorSprites[i].bounds.max.y < playerCollider.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > playerCollider.bounds.min.y)
                         {
                             if (!isOnFloor)
                             {
@@ -180,9 +181,9 @@ public class PlayerMoveScript : MonoBehaviour {
                     }
                     break;
                 case 90:
-                    if (mirrorSprites[i].bounds.max.x > sprite.bounds.min.x && mirrorSprites[i].bounds.max.x < sprite.bounds.max.x)
+                    if (mirrorSprites[i].bounds.max.x > playerCollider.bounds.min.x && mirrorSprites[i].bounds.max.x < playerCollider.bounds.max.x)
                     {
-                        if (mirrorSprites[i].bounds.max.y < sprite.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > sprite.bounds.min.y)
+                        if (mirrorSprites[i].bounds.max.y < playerCollider.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > playerCollider.bounds.min.y)
                         {
                             if (!isOnFloor)
                             {
