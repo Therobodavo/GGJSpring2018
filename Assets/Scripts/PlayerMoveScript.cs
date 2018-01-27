@@ -17,6 +17,12 @@ public class PlayerMoveScript : MonoBehaviour {
     public Rigidbody2D body;
     public Collider2D playerCollider;
 
+    //PLayer start position
+    public Vector3 sPos;
+
+    //Float for checking current level
+    public float level;
+
     public bool isOnFloor;
     private int xChange;
 
@@ -40,6 +46,8 @@ public class PlayerMoveScript : MonoBehaviour {
         body.freezeRotation = true;
 
         laser.SetActive(false);
+
+        sPos = transform.position;
 	}
 	
 	// Update is called once per frame
