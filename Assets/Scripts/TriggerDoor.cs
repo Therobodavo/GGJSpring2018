@@ -17,7 +17,7 @@ public class TriggerDoor : MonoBehaviour {
 	}
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if(other.collider.gameObject.tag == "player")
+        if(other.collider.gameObject.tag == "Player")
         {
             SceneManager.LoadScene(newScene);
         }

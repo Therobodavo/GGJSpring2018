@@ -65,9 +65,12 @@ public class Laser : MonoBehaviour {
         }
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        print("yo");
-        script.EndLaser();
+        if(other.tag != "Transparent")
+        {
+            print(other.name);
+            script.EndLaser();
+        }
     }
 }
