@@ -13,12 +13,18 @@ public class PlayerMoveScript : MonoBehaviour {
     public float maxSpeed;
     public float jumpForce;
     public float maxLandDistance;
+    public float maxMoveDistance;
     public Rigidbody2D body;
     public Collider playerCollider;
 
     public bool isOnFloor;
     private int xChange;
 
+    //left and right checkers
+    private bool leftBlock;
+    private bool rightBlock;
+
+    public SpriteRenderer sprite;
 	// Use this for initialization
 	void Start () {
         xChange = 0;
@@ -52,6 +58,30 @@ public class PlayerMoveScript : MonoBehaviour {
         else
         {
             isOnFloor = false;
+        }
+
+        if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x - .01f, transform.position.y), -Vector3.right, maxMoveDistance))
+        {
+            if (!leftBlock)
+            {
+                leftBlock = true;
+            }
+        }
+        else
+        {
+            leftBlock = false;
+        }
+        print(sprite.bounds.size.x);
+        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y), Vector3.right, maxMoveDistance))
+        {
+            if (!rightBlock)
+            {
+                rightBlock = true;
+            }
+        }
+        else
+        {
+            rightBlock = false;
         }
     }
 
@@ -103,6 +133,17 @@ public class PlayerMoveScript : MonoBehaviour {
 
     private void Accelerate(float dT)
     {
+        if(xChange == -1 && leftBlock && velocity < 0)
+        {
+            velocity = 0;
+            return;
+        }
+        if(xChange == 1 && rightBlock && velocity > 0)
+        {
+            velocity = 0;
+            return;
+        }
+
         //use floor acceleration if on floor
         if (isOnFloor)
         {
