@@ -30,7 +30,6 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = -1f;
                     yChange = 0;
-                    print("left");
 
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
@@ -39,7 +38,6 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = 1f;
                     yChange = 0;
-                    print("right");
 
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
@@ -48,7 +46,6 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = 0;
                     yChange = 1f;
-                    print("up");
 
                     transform.eulerAngles = new Vector3(0, 0, 90);
                 }
@@ -57,7 +54,6 @@ public class Laser : MonoBehaviour {
                     SetFired();
                     xChange = 0;
                     yChange = -1f;
-                    print("down");
 
                     transform.eulerAngles = new Vector3(0, 0, 90);
                 }
@@ -71,6 +67,7 @@ public class Laser : MonoBehaviour {
 
     private void SetFired()
     {
+        GetComponent<SpriteRenderer>().sprite = script.laser2;
         script.isFired = true;
     }
 
@@ -148,6 +145,11 @@ public class Laser : MonoBehaviour {
         }
         if(other.tag != "Transparent")
         {
+            float dimx = script.sprite.bounds.size.x / 2.0f;
+            print(dimx);
+            float dimy = script.sprite.bounds.size.y / 2.0f;
+            print(dimy);
+            player.transform.position = new Vector2(player.transform.position.x - dimx * (float) xChange, player.transform.position.y - dimy * (float) yChange);
             script.EndLaser(true);
         }
     }

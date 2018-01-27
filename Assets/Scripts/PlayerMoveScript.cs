@@ -26,7 +26,10 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public bool isLaser;
     public bool isFired;
-    public int canLaser = 10;
+    public int canLaser = 1;
+
+    public Sprite laser1;
+    public Sprite laser2;
 
     public GameObject laser;
 
@@ -154,13 +157,14 @@ public class PlayerMoveScript : MonoBehaviour {
         else if (canLaser == 0 && Input.GetKeyDown(KeyCode.Space))
         {
             isLaser = true;
-            canLaser = 10;
+            canLaser = 5;
             body.gravityScale = 0;
             savedVelocity = body.velocity;
             body.velocity = Vector2.zero;
             sprite.enabled = false;
             playerCollider.enabled = false;
             laser.SetActive(true);
+            laser.GetComponent<SpriteRenderer>().sprite = laser1;
 
         }
 
