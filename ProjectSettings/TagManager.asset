@@ -7,6 +7,7 @@ TagManager:
   - Transparent
   - player
   - Mirror
+  - OneWayGlass
   layers:
   - Default
   - TransparentFX

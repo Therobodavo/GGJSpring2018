@@ -121,7 +121,7 @@ public class PlayerMoveScript : MonoBehaviour {
             {
                 isOnFloor = true;
             }
-            else if (canLaser != 0)
+            if (canLaser != 0)
             {
                 canLaser--;
             }
@@ -168,7 +168,14 @@ public class PlayerMoveScript : MonoBehaviour {
                     {
                         if (mirrorSprites[i].bounds.max.y < sprite.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > sprite.bounds.min.y)
                         {
-                            isOnFloor = true;
+                            if (!isOnFloor)
+                            {
+                                isOnFloor = true;
+                            }
+                            if (canLaser != 0)
+                            {
+                                canLaser--;
+                            }
                         }
                     }
                     break;
@@ -177,7 +184,14 @@ public class PlayerMoveScript : MonoBehaviour {
                     {
                         if (mirrorSprites[i].bounds.max.y < sprite.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > sprite.bounds.min.y)
                         {
-                            isOnFloor = true;
+                            if (!isOnFloor)
+                            {
+                                isOnFloor = true;
+                            }
+                            if (canLaser != 0)
+                            {
+                                canLaser--;
+                            }
                         }
                     }
                     break;

@@ -143,6 +143,44 @@ public class Laser : MonoBehaviour {
                     break;
             }
         }
+        if(other.tag == "OneWayGlass")
+        {
+            switch((int)other.transform.eulerAngles.z)
+            {
+                case 0:
+                    print("yo");
+                    if (xChange == -1)
+                    {
+                        return;
+                    }
+
+                    break;
+                case 90:
+                    if(yChange == -1)
+                    {
+                        return;
+                    }
+
+                    break;
+                case 180:
+                    if(xChange == 1)
+                    {
+                        return;
+                    }
+
+                    break;
+                case 270:
+                    if(yChange == 1)
+                    {
+                        return;
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
         if(other.tag != "Transparent")
         {
             float dimx = script.sprite.bounds.size.x / 2.0f;
