@@ -26,6 +26,7 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public bool isLaser;
     public bool isFired;
+    public int canLaser = 10;
 
     public GameObject laser;
 
@@ -68,17 +69,22 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             if(!isFired && Input.GetKeyUp(KeyCode.Space))
             {
-                EndLaser();
+                EndLaser(false);
             }
         }
 	}
 
-    public void EndLaser()
+    public void EndLaser(bool wall)
     {
         isLaser = false;
         isFired = false;
         body.gravityScale = 1.5f;
-        body.velocity = savedVelocity;
+        if (!wall) body.velocity = savedVelocity;
+        else
+        {
+            body.velocity = new Vector2(0, 0);
+            velocity = 0;
+        }
         sprite.enabled = true;
         playerCollider.enabled = true;
         laser.SetActive(false);
@@ -93,6 +99,10 @@ public class PlayerMoveScript : MonoBehaviour {
             if (!isOnFloor)
             {
                 isOnFloor = true;
+            }
+            else if (canLaser != 0)
+            {
+                canLaser--;
             }
         }
         else
@@ -141,9 +151,10 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             xChange = 1;
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (canLaser == 0 && Input.GetKeyDown(KeyCode.Space))
         {
             isLaser = true;
+            canLaser = 10;
             body.gravityScale = 0;
             savedVelocity = body.velocity;
             body.velocity = Vector2.zero;

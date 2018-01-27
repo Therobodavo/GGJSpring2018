@@ -27,7 +27,7 @@ public class Laser : MonoBehaviour {
             {
                 if (Input.GetKeyDown(KeyCode.A))
                 {
-                    script.isFired = true;
+                    SetFired();
                     xChange = -1f;
                     yChange = 0;
 
@@ -35,7 +35,7 @@ public class Laser : MonoBehaviour {
                 }
                 else if (Input.GetKeyDown(KeyCode.D))
                 {
-                    script.isFired = true;
+                    SetFired();
                     xChange = 1f;
                     yChange = 0;
 
@@ -43,7 +43,7 @@ public class Laser : MonoBehaviour {
                 }
                 else if (Input.GetKeyDown(KeyCode.W))
                 {
-                    script.isFired = true;
+                    SetFired();
                     xChange = 0;
                     yChange = 1f;
 
@@ -51,7 +51,7 @@ public class Laser : MonoBehaviour {
                 }
                 else if (Input.GetKeyDown(KeyCode.S))
                 {
-                    script.isFired = true;
+                    SetFired();
                     xChange = 0;
                     yChange = -1f;
 
@@ -65,9 +65,17 @@ public class Laser : MonoBehaviour {
         }
 	}
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void SetFired()
     {
-        print("yo");
-        script.EndLaser();
+        script.isFired = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag != "Transparent")
+        {
+            print(other.name);
+            script.EndLaser(true);
+        }
     }
 }
