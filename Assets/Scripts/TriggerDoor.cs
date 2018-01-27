@@ -13,7 +13,7 @@ public class TriggerDoor : MonoBehaviour {
 	void Update () {
 		
 	}
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         other.transform.position = new Vector3(0f,0f,0f);
         Debug.Log("ds");
