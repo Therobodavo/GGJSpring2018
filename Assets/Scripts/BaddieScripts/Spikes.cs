@@ -20,7 +20,7 @@ public class Spikes : MonoBehaviour {
     {
         PlayerMoveScript pScript = (PlayerMoveScript)player.GetComponent("PlayerMoveScript");
         pScript.transform.position = pScript.sPos;
-        Debug.Log("WOOOT");
+        
     }
     private void OnTriggerExit(Collider other)
     {
