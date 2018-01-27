@@ -60,7 +60,7 @@ public class PlayerMoveScript : MonoBehaviour {
             isOnFloor = false;
         }
 
-        if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x - .01f, transform.position.y), -Vector3.right, maxMoveDistance))
+        if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * sprite.bounds.size.x - .01f, transform.position.y + .1f), -Vector3.right, maxMoveDistance))
         {
             if (!leftBlock)
             {
@@ -72,7 +72,7 @@ public class PlayerMoveScript : MonoBehaviour {
             leftBlock = false;
         }
         print(sprite.bounds.size.x);
-        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y), Vector3.right, maxMoveDistance))
+        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y + .1f), Vector3.right, maxMoveDistance))
         {
             if (!rightBlock)
             {
