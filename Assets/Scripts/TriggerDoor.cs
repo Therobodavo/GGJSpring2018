@@ -20,6 +20,7 @@ public class TriggerDoor : MonoBehaviour {
         if(other.collider.gameObject.tag == "Player")
         {
             SceneManager.LoadScene(newScene);
+            other.collider.gameObject.GetComponent<PlayerMoveScript>().GetAllMirrors();
         }
     }
     private void OnTriggerExit(Collider other)

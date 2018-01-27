@@ -39,6 +39,9 @@ public class PlayerMoveScript : MonoBehaviour {
     private bool leftBlock;
     private bool rightBlock;
 
+    public GameObject[] mirrors;
+    public SpriteRenderer[] mirrorSprites;
+
     public SpriteRenderer sprite;
 	// Use this for initialization
 	void Start () {
@@ -50,6 +53,10 @@ public class PlayerMoveScript : MonoBehaviour {
         laser.SetActive(false);
 
         sPos = transform.position;
+
+        mirrors = new GameObject[0];
+        mirrorSprites = new SpriteRenderer[0];
+        GetAllMirrors();
 	}
 	
 	// Update is called once per frame
@@ -76,6 +83,17 @@ public class PlayerMoveScript : MonoBehaviour {
             }
         }
 	}
+
+    public void GetAllMirrors()
+    {
+        mirrors = GameObject.FindGameObjectsWithTag("Mirror");
+        mirrorSprites = new SpriteRenderer[mirrors.Length];
+
+        for (int i = 0; i < mirrors.Length; i++)
+        {
+            mirrorSprites[i] = mirrors[i].GetComponent<SpriteRenderer>();
+        }
+    }
 
     public void EndLaser(bool wall)
     {
@@ -139,6 +157,35 @@ public class PlayerMoveScript : MonoBehaviour {
         else
         {
             rightBlock = false;
+        }
+
+        for (int i = 0; i < mirrors.Length; i++)
+        {
+            switch ((int)mirrors[i].transform.eulerAngles.z)
+            {
+                case 0:
+                    if(mirrorSprites[i].bounds.min.x > sprite.bounds.min.x && mirrorSprites[i].bounds.min.x < sprite.bounds.max.x)
+                    {
+                        if (mirrorSprites[i].bounds.max.y < sprite.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > sprite.bounds.min.y)
+                        {
+                            isOnFloor = true;
+                        }
+                    }
+                    break;
+                case 90:
+                    if (mirrorSprites[i].bounds.max.x > sprite.bounds.min.x && mirrorSprites[i].bounds.max.x < sprite.bounds.max.x)
+                    {
+                        if (mirrorSprites[i].bounds.max.y < sprite.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > sprite.bounds.min.y)
+                        {
+                            isOnFloor = true;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            
         }
     }
 
