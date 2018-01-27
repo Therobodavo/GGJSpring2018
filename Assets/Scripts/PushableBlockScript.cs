@@ -41,7 +41,7 @@ public class PushableBlockScript : MonoBehaviour {
         {
             leftBlock = false;
         }
-        print(blockSprite.bounds.size.x);
+        //print(blockSprite.bounds.size.x);
         if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * blockSprite.bounds.size.x + .01f, transform.position.y + .1f), Vector3.right, maxMoveDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * blockSprite.bounds.size.x + .01f, transform.position.y + .5f * blockSprite.bounds.size.y), Vector3.right, maxMoveDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * blockSprite.bounds.size.x + .01f, transform.position.y + blockSprite.bounds.size.y - .1f), Vector3.right, maxMoveDistance))
@@ -88,7 +88,7 @@ public class PushableBlockScript : MonoBehaviour {
                 }
                 else
                 {
-                    print("hello");
+                    //print("hello");
                     sincePush += Time.deltaTime;
 
                     if (sincePush > pushStartTime)
@@ -118,7 +118,7 @@ public class PushableBlockScript : MonoBehaviour {
             sincePush = 0;
         }
 
-        print(rightBlock);
+        //print(rightBlock);
         if(!(leftBlock && xChange == -1) && !(rightBlock && xChange == 1))
         {
             transform.Translate(xChange * pushSpeed * Time.deltaTime, 0, 0);

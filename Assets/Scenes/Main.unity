@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 182015101}
   - component: {fileID: 182015102}
   - component: {fileID: 182015098}
+  - component: {fileID: 182015103}
   m_Layer: 0
   m_Name: me
   m_TagString: Untagged
@@ -257,13 +258,24 @@ MonoBehaviour:
   body: {fileID: 182015098}
   playerCollider: {fileID: 182015101}
   sPos: {x: 0, y: 0, z: 0}
-  level: 0
   isOnFloor: 0
   isLaser: 0
   isFired: 0
   laser: {fileID: 306669109}
   savedVelocity: {x: 0, y: 0}
   sprite: {fileID: 182015099}
+--- !u!114 &182015103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 182015097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c80422ee1fd060440806e47920e1fb12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  script: {fileID: 182015102}
 --- !u!1001 &253224072
 Prefab:
   m_ObjectHideFlags: 0
@@ -419,7 +431,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.025049657, y: -0.053230047}
@@ -1254,7 +1266,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.14989376, y: 0.4871664}

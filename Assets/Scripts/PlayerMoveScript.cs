@@ -17,11 +17,9 @@ public class PlayerMoveScript : MonoBehaviour {
     public Rigidbody2D body;
     public Collider2D playerCollider;
 
-    //PLayer start position
-    public Vector3 sPos;
 
-    //Float for checking current level
-    public float level;
+    //playeer start position
+    public Vector3 sPos;
 
     public bool isOnFloor;
     private int xChange;
@@ -52,13 +50,15 @@ public class PlayerMoveScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        GetInput();
+
+
         if (!isLaser)
         {
             float dT = Time.deltaTime;
 
             CheckColliders();
-
-            GetInput();
 
             Accelerate(dT);
 
@@ -68,12 +68,21 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             if(!isFired && Input.GetKeyUp(KeyCode.Space))
             {
-                isLaser = false;
-                body.isKinematic = false;
-                body.velocity = savedVelocity;
+                EndLaser();
             }
         }
 	}
+
+    private void EndLaser()
+    {
+        isLaser = false;
+        isFired = false;
+        body.isKinematic = false;
+        body.velocity = savedVelocity;
+        sprite.enabled = true;
+        playerCollider.enabled = true;
+        laser.SetActive(false);
+    }
 
     private void CheckColliders()
     {
@@ -104,7 +113,7 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             leftBlock = false;
         }
-        print(sprite.bounds.size.x);
+        //print(sprite.bounds.size.x);
         if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y + .1f), Vector3.right, maxMoveDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y + .5f * sprite.bounds.size.y), Vector3.right, maxMoveDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * sprite.bounds.size.x + .01f, transform.position.y + sprite.bounds.size.y - .1f), Vector3.right, maxMoveDistance))
@@ -138,6 +147,9 @@ public class PlayerMoveScript : MonoBehaviour {
             body.isKinematic = true;
             savedVelocity = body.velocity;
             body.velocity = Vector2.zero;
+            sprite.enabled = false;
+            playerCollider.enabled = false;
+            laser.SetActive(true);
 
         }
 
