@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PushableBlockScript : MonoBehaviour {
 
-    public Sprite playerSprite;
+    public Collider2D playerCollider;
     public SpriteRenderer blockSprite;
     public float pushSpeed;
     public float pushStartTime;
@@ -61,10 +61,10 @@ public class PushableBlockScript : MonoBehaviour {
 
         xChange = 0;
 
-        if (playerSprite.bounds.min.y < blockSprite.bounds.max.y && playerSprite.bounds.max.y > blockSprite.bounds.min.y)
+        if (playerCollider.bounds.min.y < blockSprite.bounds.max.y && playerCollider.bounds.max.y > blockSprite.bounds.min.y)
         {
 
-            if (playerSprite.bounds.min.x >= blockSprite.bounds.max.x && playerSprite.bounds.min.x - .05f < blockSprite.bounds.max.x && Input.GetKey(KeyCode.A))
+            if (playerCollider.bounds.min.x >= blockSprite.bounds.max.x && playerCollider.bounds.min.x - .05f < blockSprite.bounds.max.x && Input.GetKey(KeyCode.A))
             {
                 if (pushed)
                 {
@@ -82,7 +82,7 @@ public class PushableBlockScript : MonoBehaviour {
                     }
                 }
             }
-            else if (playerSprite.bounds.max.x <= blockSprite.bounds.min.x && playerSprite.bounds.max.x + .05f > blockSprite.bounds.min.x && Input.GetKey(KeyCode.D))
+            else if (playerCollider.bounds.max.x <= blockSprite.bounds.min.x && playerCollider.bounds.max.x + .05f > blockSprite.bounds.min.x && Input.GetKey(KeyCode.D))
             {
                 if (pushed)
                 {

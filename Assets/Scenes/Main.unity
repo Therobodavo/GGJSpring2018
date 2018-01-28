@@ -129,6 +129,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1075312883}
   m_Script: {fileID: 11500000, guid: 8485e0ea36c476e4c8500f8e7029f22e, type: 3}
+--- !u!61 &182015100 stripped
+BoxCollider2D:
+  m_PrefabParentObject: {fileID: 61999661471460104, guid: 26387482c6bfd0448b725e0a65f0036d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1075312883}
 --- !u!1001 &274619499
 Prefab:
   m_ObjectHideFlags: 0
@@ -176,8 +181,12 @@ Prefab:
         type: 2}
       propertyPath: playerSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4bf51ad2224704d439a0ad5f286671aa,
-        type: 3}
+      objectReference: {fileID: 182015100}
+    - target: {fileID: 114444849613088544, guid: 73ea84d3100f3ad4983b4746a9e3ace9,
+        type: 2}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 182015100}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 73ea84d3100f3ad4983b4746a9e3ace9, type: 2}
   m_IsPrefabParent: 0
@@ -590,8 +599,12 @@ Prefab:
         type: 2}
       propertyPath: playerSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4bf51ad2224704d439a0ad5f286671aa,
-        type: 3}
+      objectReference: {fileID: 182015100}
+    - target: {fileID: 114444849613088544, guid: 73ea84d3100f3ad4983b4746a9e3ace9,
+        type: 2}
+      propertyPath: playerCollider
+      value: 
+      objectReference: {fileID: 182015100}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 73ea84d3100f3ad4983b4746a9e3ace9, type: 2}
   m_IsPrefabParent: 0
