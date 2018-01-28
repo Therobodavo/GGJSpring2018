@@ -20,6 +20,8 @@ public class Lantern : MonoBehaviour {
         door = GameObject.FindGameObjectWithTag("Door");
         door.GetComponent<TriggerDoor>().UncountLantern();
         isLit = false;
+
+        script = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMoveScript>();
 	}
 	
 	// Update is called once per frame
