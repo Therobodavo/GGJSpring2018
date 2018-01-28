@@ -8,6 +8,8 @@ public class Switch : MonoBehaviour {
 
     public bool on;
 
+    public AudioSource switchSound;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -27,6 +29,8 @@ public class Switch : MonoBehaviour {
             GetComponent<SpriteRenderer>().flipX = on;
             trapdoor.GetComponent<Collider2D>().enabled = !on;
             trapdoor.GetComponent<SpriteRenderer>().enabled = !on;
+
+            switchSound.Play();
         }
     }
 }

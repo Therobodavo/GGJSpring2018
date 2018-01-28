@@ -10,9 +10,15 @@ public class Lantern : MonoBehaviour {
 
     public GameObject door;
 
+    private bool isLit;
+
+    public AudioSource lightSound;
+
 	// Use this for initialization
 	void Start () {
         door = GameObject.FindGameObjectWithTag("Door");
+
+        isLit = false;
 	}
 	
 	// Update is called once per frame
@@ -22,11 +28,9 @@ public class Lantern : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        print("z");
         if(other.tag == "Laser")
         {
-            print("hi");
-            if (script.isLaser)
+            if (script.isLaser && !isLit)
             {
                 Light();
             }
@@ -38,5 +42,9 @@ public class Lantern : MonoBehaviour {
         gameObject.GetComponent<SpriteRenderer>().sprite = lit;
         TriggerDoor td = door.GetComponent<TriggerDoor>();
         td.CountLantern();
+
+        isLit = true;
+
+        lightSound.Play();
     }
 }
