@@ -45,6 +45,9 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public SpriteRenderer sprite;
 
+
+    public SpriteRenderer walkingSprite;
+
 	// Use this for initialization
 	void Start () {
         xChange = 0;
@@ -247,11 +250,13 @@ public class PlayerMoveScript : MonoBehaviour {
             if (Input.GetKey(KeyCode.D))
             {
                 xChange = 1;
+
             }
             else
             {
                 xChange = 0;
             }
+            
 
         }
         else if (Input.GetKeyUp(KeyCode.D))
@@ -265,11 +270,33 @@ public class PlayerMoveScript : MonoBehaviour {
             {
                 xChange = 0;
             }
+            
 
         }
 
+        if(isOnFloor && !isLaser && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+        {
+            sprite.enabled = false;
+            walkingSprite.enabled = true;
 
-
+            if (xChange == 1 && walkingSprite.flipX)
+            {
+                walkingSprite.flipX = !walkingSprite.flipX;
+            }
+            else if (xChange == -1 && !walkingSprite.flipX)
+            {
+                walkingSprite.flipX = !walkingSprite.flipX;
+            }
+        }
+        else
+        {
+            if (!isLaser)
+            {
+                sprite.enabled = true;
+            }
+            walkingSprite.enabled = false;
+        }
+        
 
         if (!isLaser)
         {
@@ -279,6 +306,9 @@ public class PlayerMoveScript : MonoBehaviour {
                 body.AddForce(new Vector2(0, jumpForce));
                 body.velocity = new Vector2(body.velocity.x, .01f);
             }
+
+           
+
         }
         
     }
