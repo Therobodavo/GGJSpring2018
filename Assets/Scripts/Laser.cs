@@ -148,7 +148,6 @@ public class Laser : MonoBehaviour {
             switch((int)other.transform.eulerAngles.z)
             {
                 case 0:
-                    print("yo");
                     if (xChange == -1)
                     {
                         return;
@@ -183,11 +182,9 @@ public class Laser : MonoBehaviour {
         }
         if(other.tag != "Transparent")
         {
-            float dimx = script.sprite.bounds.size.x / 2.0f;
-            print(dimx);
-            float dimy = script.sprite.bounds.size.y / 2.0f;
-            print(dimy);
-            player.transform.position = new Vector2(player.transform.position.x - dimx * (float) xChange, player.transform.position.y - dimy * (float) yChange);
+            float dimx = script.gameObject.GetComponent<Collider2D>().bounds.size.x / 2.0f;
+            float dimy = script.gameObject.GetComponent<Collider2D>().bounds.size.y / 2.0f;
+            player.transform.position = new Vector2(player.transform.position.x - dimx * xChange, player.transform.position.y - dimy * yChange);
             script.EndLaser(true);
         }
     }

@@ -8,6 +8,8 @@ TagManager:
   - player
   - Mirror
   - OneWayGlass
+  - Door
+  - Laser
   layers:
   - Default
   - TransparentFX

@@ -63,6 +63,14 @@ public class PlayerMoveScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (isLaser) EndLaser(true);
+            velocity = 0;
+            body.velocity = new Vector2(0, 0);
+            transform.position = sPos;
+        }
+
         GetInput();
 
 
