@@ -14,6 +14,7 @@ public class Laser : MonoBehaviour {
 
     private float xChange;
     private float yChange;
+    public AudioSource hitMirror;
 
     // Use this for initialization
     void Start()
@@ -101,6 +102,8 @@ public class Laser : MonoBehaviour {
     {
         if (other.tag == "Mirror")
         {
+            hitMirror.mute = false;
+            hitMirror.Play();
             int rotation = (int)other.transform.eulerAngles.z;
             switch (rotation)
             {

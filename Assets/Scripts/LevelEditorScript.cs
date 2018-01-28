@@ -11,6 +11,8 @@ public class LevelEditorScript : MonoBehaviour {
     public GameObject player;
     public GameObject door;
 
+    public GameObject currentTrapDoor;
+
     public Camera mainCam;
     private float camWidth;
     private float camHeight;
@@ -128,15 +130,46 @@ public class LevelEditorScript : MonoBehaviour {
                             menuObjects[j][k].SetActive(false);
                         }
                     }
+
+                    transform.eulerAngles = new Vector3(0, 0, 0);
                 }
                 else if (currentPrefab != null)
                 {
                     GameObject newObj = Instantiate(currentPrefab);
 
                     newObj.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+                    newObj.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+
+                    if (newObj.tag == "Switch")
+                    {
+                        newObj.GetComponent<Switch>().trapdoor = currentTrapDoor;
+                    }
                 }
             }
 
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (currentTrapDoor != null)
+                {
+                    currentTrapDoor.GetComponent<SpriteRenderer>().color = Color.white;
+                    currentTrapDoor = null;
+                }
+
+                RaycastHit2D hit = new RaycastHit2D();
+                if ((hit = Physics2D.Raycast(mousePos, Vector2.up, 0)).collider != null)
+                {
+                    print("hi");
+                    if(hit.collider.gameObject.tag == "Trapdoor")
+                    {
+                        currentTrapDoor = hit.collider.gameObject;
+                        currentTrapDoor.GetComponent<SpriteRenderer>().color = Color.gray;
+                    }
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, (transform.eulerAngles.z + 90) % 360);
+            }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (menu)
@@ -160,6 +193,8 @@ public class LevelEditorScript : MonoBehaviour {
 
                 playing = true;
 
+                sprite = null;
+                currentPrefab = null;
                 player.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
                 player.GetComponent<PlayerMoveScript>().enabled = true;
                 door.GetComponent<TriggerDoor>().enabled = true;

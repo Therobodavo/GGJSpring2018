@@ -13,6 +13,8 @@ public class TriggerDoor : MonoBehaviour {
     public bool restart;
 
     public int lanternCount;
+
+    public AudioSource doorUnlock;
 	// Use this for initialization
 	void Start () {
 		
@@ -51,6 +53,8 @@ public class TriggerDoor : MonoBehaviour {
         if(lanternCount == 0)
         {
             //play sound
+            doorUnlock.mute = false;
+            doorUnlock.Play();
             GetComponent<SpriteRenderer>().sprite = open;
         }
     }

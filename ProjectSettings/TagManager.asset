@@ -15,6 +15,7 @@ TagManager:
   - PushableBlock
   - Lantern
   - Switch
+  - Trapdoor
   layers:
   - Default
   - TransparentFX
