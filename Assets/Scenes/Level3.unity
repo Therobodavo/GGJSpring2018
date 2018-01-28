@@ -6981,7 +6981,7 @@ Prefab:
     - target: {fileID: 114270975516217752, guid: d07516a03ff3faf4985d1747d9f728fc,
         type: 2}
       propertyPath: newScene
-      value: Level1
+      value: Level4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d07516a03ff3faf4985d1747d9f728fc, type: 2}
@@ -7805,7 +7805,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
