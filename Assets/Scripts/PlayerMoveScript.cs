@@ -306,8 +306,11 @@ public class PlayerMoveScript : MonoBehaviour {
 
             }
         }
-        
 
+        if (deathAnimate.deathTrans)
+        {
+            xChange = 0;
+        }
 
 
         if (!transforming && !deathAnimate.deathTrans)
