@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LevelEditorScript : MonoBehaviour {
@@ -12,6 +13,11 @@ public class LevelEditorScript : MonoBehaviour {
     public GameObject door;
 
     public GameObject currentTrapDoor;
+
+    public List<GameObject> objects;
+    public List<Vector3> objectLocs;
+
+    public GameObject music;
 
     public Camera mainCam;
     private float camWidth;
@@ -47,16 +53,17 @@ public class LevelEditorScript : MonoBehaviour {
         camHeight = 2f * mainCam.orthographicSize;
         camWidth = camHeight * mainCam.aspect;
 
+        objects = new List<GameObject>();
+        objectLocs = new List<Vector3>();
+
         possiblePrefabSprites = new List<Sprite>();
 
         foreach (var item in possiblePrefabs)
         {
-            print(item.GetComponent<SpriteRenderer>().sprite);
             possiblePrefabSprites.Add(item.GetComponent<SpriteRenderer>().sprite);
         }
 
         float objSep = (camWidth - 4f) / 6f;
-        print(objSep);
         List<GameObject> currentMenu = new List<GameObject>();
         for (int i = 0; i < possiblePrefabs.Count; i++)
         {
@@ -69,11 +76,15 @@ public class LevelEditorScript : MonoBehaviour {
             GameObject newObj = new GameObject();
 
             newObj.transform.localScale = possiblePrefabs[i].transform.localScale * 2;
-            print(mainCam.transform.localPosition.x - camWidth / 2 + 2 + objSep * i % 6);
             newObj.transform.position = new Vector3(mainCam.transform.localPosition.x - camWidth / 2 + 5 + objSep * (i % 6), mainCam.transform.localPosition.y - camHeight/ 2 + 2,-6);
 
             SpriteRenderer newRender = newObj.AddComponent<SpriteRenderer>();
             newRender.sprite = possiblePrefabSprites[i];
+
+            if(i == 1)
+            {
+                newRender.sprite = possiblePrefabSprites[0];
+            }
 
             EditorSelectScript newScript = newObj.AddComponent<EditorSelectScript>();
             newScript.sprite = possiblePrefabSprites[i];
@@ -86,6 +97,8 @@ public class LevelEditorScript : MonoBehaviour {
 
             currentMenu.Add(newObj);
         }
+
+        
 	}
 	
 	// Update is called once per frame
@@ -104,7 +117,6 @@ public class LevelEditorScript : MonoBehaviour {
                         }
                     }
 
-                    print(menuObjects[i - 1].Count);
                     for (int j = 0; j < menuObjects[i - 1].Count; j++)
                     {
                         menuObjects[i - 1][j].SetActive(true);
@@ -135,15 +147,39 @@ public class LevelEditorScript : MonoBehaviour {
                 }
                 else if (currentPrefab != null)
                 {
-                    GameObject newObj = Instantiate(currentPrefab);
-
-                    newObj.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
-                    newObj.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
-
-                    if (newObj.tag == "Switch")
+                    if (currentPrefab.tag == "Player")
                     {
-                        newObj.GetComponent<Switch>().trapdoor = currentTrapDoor;
+                        player.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+                        player.GetComponent<PlayerMoveScript>().sPos = player.transform.position;
+
+                        currentPrefab = null;
+                        sprite.sprite = null;
                     }
+                    else if(currentPrefab.tag == "Door")
+                    {
+                        door.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+
+                        currentPrefab = null;
+                        sprite.sprite = null;
+                    }
+                    else if (!(currentPrefab.tag == "Switch" && currentTrapDoor == null))
+                    {
+
+                        GameObject newObj = Instantiate(currentPrefab);
+
+                        newObj.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+                        newObj.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+
+                        if (newObj.tag == "Switch")
+                        {
+                            newObj.GetComponent<Switch>().trapdoor = currentTrapDoor;
+                        }
+
+                        objects.Add(newObj);
+                        objectLocs.Add(newObj.transform.position);
+                    }
+
+
                 }
             }
 
@@ -155,22 +191,43 @@ public class LevelEditorScript : MonoBehaviour {
                     currentTrapDoor = null;
                 }
 
+                sprite.sprite = null;
+                currentPrefab = null;
+
                 RaycastHit2D hit = new RaycastHit2D();
                 if ((hit = Physics2D.Raycast(mousePos, Vector2.up, 0)).collider != null)
                 {
-                    print("hi");
                     if(hit.collider.gameObject.tag == "Trapdoor")
                     {
                         currentTrapDoor = hit.collider.gameObject;
                         currentTrapDoor.GetComponent<SpriteRenderer>().color = Color.gray;
                     }
+
+                    if(hit.collider.gameObject.tag == "Door")
+                    {
+                        transform.localScale = hit.collider.gameObject.transform.localScale;
+                        sprite.sprite = hit.collider.gameObject.GetComponent<SpriteRenderer>().sprite;
+                        currentPrefab = hit.collider.gameObject;
+                    }
                 }
+                else
+                {
+                    Collider2D playerCollider = player.GetComponent<Collider2D>();
+                    if (mousePos.x > playerCollider.bounds.min.x && mousePos.x < playerCollider.bounds.max.x && mousePos.y > playerCollider.bounds.min.y && mousePos.y < playerCollider.bounds.max.y)
+                    {
+                        transform.localScale = player.transform.localScale;
+                        sprite.sprite = player.GetComponent<SpriteRenderer>().sprite;
+                        currentPrefab = player.gameObject;
+                    }
+                }
+
+
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, (transform.eulerAngles.z + 90) % 360);
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 if (menu)
                 {
@@ -199,17 +256,69 @@ public class LevelEditorScript : MonoBehaviour {
                 player.GetComponent<PlayerMoveScript>().enabled = true;
                 door.GetComponent<TriggerDoor>().enabled = true;
             }
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                RaycastHit2D hit = new RaycastHit2D();
+                if ((hit = Physics2D.Raycast(mousePos, Vector2.up, 0)).collider != null)
+                {
+                    if (!(hit.collider.gameObject.tag == "Player" || hit.collider.gameObject.tag == "Door"))
+                    {
+                        GameObject temp = hit.collider.gameObject;
+
+                        if (hit.collider.gameObject.tag == "Trapdoor")
+                        {
+
+
+                            for (int i = 0; i < objects.Count; i++)
+                            {
+                                if(objects[i].tag == "Switch" && objects[i].GetComponent<Switch>().trapdoor == hit.collider.gameObject)
+                                {
+                                    temp = objects[i];
+                                    objects.Remove(temp);
+                                    objectLocs.Remove(temp.transform.position);
+                                    GameObject.Destroy(temp);
+                                }
+                            }
+                        }
+
+
+                        temp = hit.collider.gameObject;
+                        objects.Remove(temp);
+                        objectLocs.Remove(temp.transform.position);
+                        GameObject.Destroy(temp);
+                    }
+                }
+            }
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                player.GetComponent<PlayerMoveScript>().Die();
+                Reset();
+
+                playing = false;
 
                 player.GetComponent<Rigidbody2D>().gravityScale = 0f;
                 player.GetComponent<PlayerMoveScript>().enabled = false;
                 door.GetComponent<TriggerDoor>().enabled = false;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Destroy(music);
+
+            SceneManager.LoadScene("Menu");
+        }
 	}
+
+    private void Reset()
+    {
+        for (int i = 0; i < objects.Count; i++)
+        {
+            objects[i].transform.position = objectLocs[i];
+        }
+
+        player.transform.position = player.GetComponent<PlayerMoveScript>().sPos;
+    }
 }
