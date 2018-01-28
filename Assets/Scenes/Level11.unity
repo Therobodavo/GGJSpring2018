@@ -5072,7 +5072,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: '[text]'
+  m_Text: 
 --- !u!222 &1554935373
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6421,6 +6421,14 @@ Prefab:
     - target: {fileID: 4726101458478692, guid: fdfec43aac5e37545a1dc944c8897e6a, type: 2}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989736043609866, guid: fdfec43aac5e37545a1dc944c8897e6a, type: 2}
+      propertyPath: m_TagString
+      value: Spike
+      objectReference: {fileID: 0}
+    - target: {fileID: 1342170380014668, guid: fdfec43aac5e37545a1dc944c8897e6a, type: 2}
+      propertyPath: m_TagString
+      value: Spike
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fdfec43aac5e37545a1dc944c8897e6a, type: 2}
