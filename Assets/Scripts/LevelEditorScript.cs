@@ -46,6 +46,8 @@ public class LevelEditorScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        player.GetComponent<Rigidbody2D>().isKinematic = true;
+
         menu = false;
         playing = false;
 
@@ -175,6 +177,11 @@ public class LevelEditorScript : MonoBehaviour {
                             newObj.GetComponent<Switch>().trapdoor = currentTrapDoor;
                         }
 
+                        if(newObj.tag == "PushableBlock")
+                        {
+                            newObj.GetComponent<Rigidbody2D>().gravityScale = 0;
+                        }
+
                         objects.Add(newObj);
                         objectLocs.Add(newObj.transform.position);
                     }
@@ -241,20 +248,30 @@ public class LevelEditorScript : MonoBehaviour {
                         }
                     }
                 }
-                else if (currentPrefab != null)
-                {
-                    GameObject newObj = Instantiate(currentPrefab);
 
-                    newObj.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+
+                if (currentTrapDoor != null)
+                {
+                    currentTrapDoor.GetComponent<SpriteRenderer>().color = Color.white;
+                    currentTrapDoor = null;
                 }
 
                 playing = true;
 
-                sprite = null;
+                sprite.sprite = null;
                 currentPrefab = null;
                 player.GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+                player.GetComponent<Rigidbody2D>().isKinematic = false;
                 player.GetComponent<PlayerMoveScript>().enabled = true;
                 door.GetComponent<TriggerDoor>().enabled = true;
+
+                for (int i = 0; i < objects.Count; i++)
+                {
+                    if (objects[i].tag == "PushableBlock")
+                    {
+                        objects[i].GetComponent<Rigidbody2D>().gravityScale = 1.5f;
+                    }
+                }
             }
             if (Input.GetKeyDown(KeyCode.Delete))
             {
@@ -299,6 +316,7 @@ public class LevelEditorScript : MonoBehaviour {
                 playing = false;
 
                 player.GetComponent<Rigidbody2D>().gravityScale = 0f;
+                player.GetComponent<Rigidbody2D>().isKinematic = true;
                 player.GetComponent<PlayerMoveScript>().enabled = false;
                 door.GetComponent<TriggerDoor>().enabled = false;
             }
@@ -317,6 +335,11 @@ public class LevelEditorScript : MonoBehaviour {
         for (int i = 0; i < objects.Count; i++)
         {
             objects[i].transform.position = objectLocs[i];
+
+            if (objects[i].tag == "PushableBlock")
+            {
+                objects[i].GetComponent<Rigidbody2D>().gravityScale = 0f;
+            }
         }
 
         player.transform.position = player.GetComponent<PlayerMoveScript>().sPos;
