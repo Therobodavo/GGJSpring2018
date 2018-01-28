@@ -6792,7 +6792,7 @@ Prefab:
     - target: {fileID: 114270975516217752, guid: d07516a03ff3faf4985d1747d9f728fc,
         type: 2}
       propertyPath: newScene
-      value: Level2
+      value: Level7
       objectReference: {fileID: 0}
     - target: {fileID: 61290622952924764, guid: d07516a03ff3faf4985d1747d9f728fc,
         type: 2}
@@ -10880,9 +10880,9 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.2
+    x: 0
     y: 0
-    width: 0.618
+    width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
