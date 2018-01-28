@@ -8,6 +8,8 @@ public class Lantern : MonoBehaviour {
 
     public Sprite lit;
 
+    public bool isLit;
+
     public GameObject door;
 
 	// Use this for initialization
@@ -35,8 +37,14 @@ public class Lantern : MonoBehaviour {
 
     void Light()
     {
+        isLit = true;
         gameObject.GetComponent<SpriteRenderer>().sprite = lit;
         TriggerDoor td = door.GetComponent<TriggerDoor>();
         td.CountLantern();
+    }
+
+    private void Reset()
+    {
+        isLit = false;
     }
 }
