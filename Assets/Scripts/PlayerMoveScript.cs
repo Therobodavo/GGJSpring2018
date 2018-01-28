@@ -246,7 +246,7 @@ public class PlayerMoveScript : MonoBehaviour {
     private void GetInput()
     {
 
-        if (!deathAnimate.deathTrans)
+        if (!deathAnimate.deathTrans && !tranAnimate.transformer)
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
@@ -267,6 +267,14 @@ public class PlayerMoveScript : MonoBehaviour {
                 tranAnimate.transformer = true;
                 tranAnimate.scr = this;
                 tranAnimate.Timer = 0;
+                body.gravityScale = 0;
+                velocity = 0;
+                xChange = 0;
+                savedVelocity = body.velocity;
+                body.velocity = Vector2.zero;
+                playerCollider.enabled = false;
+
+
 
 
             }
@@ -372,17 +380,13 @@ public class PlayerMoveScript : MonoBehaviour {
         transforming = false;
         isLaser = true;
         canLaser = 5;
-        playerCollider.enabled = false;
+      
         laser.SetActive(true);
-        body.gravityScale = 0;
-        savedVelocity = body.velocity;
-        body.velocity = Vector2.zero;
-
-
         if (!laserSound.isPlaying)
         {
             laserSound.Play();
         }
+
     }
 
 
