@@ -69,6 +69,11 @@ public class Laser : MonoBehaviour {
     {
         GetComponent<SpriteRenderer>().sprite = script.laser2;
         script.isFired = true;
+
+        if (script.laserSound.isPlaying)
+        {
+            script.laserSound.Stop();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

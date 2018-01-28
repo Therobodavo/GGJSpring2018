@@ -45,6 +45,13 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public SpriteRenderer sprite;
 
+<<<<<<< HEAD
+
+    public SpriteRenderer walkingSprite;
+=======
+    public AudioSource laserSound;
+>>>>>>> 4aec4c440c33c7d0cc860c3d0e85de14b46ef66b
+
 	// Use this for initialization
 	void Start () {
         xChange = 0;
@@ -119,6 +126,11 @@ public class PlayerMoveScript : MonoBehaviour {
         sprite.enabled = true;
         playerCollider.enabled = true;
         laser.SetActive(false);
+
+        if (laserSound.isPlaying)
+        {
+            laserSound.Stop();
+        }
     }
 
     private void CheckColliders()
@@ -240,6 +252,11 @@ public class PlayerMoveScript : MonoBehaviour {
             laser.SetActive(true);
             laser.GetComponent<SpriteRenderer>().sprite = laser1;
 
+            if (!laserSound.isPlaying)
+            {
+                laserSound.Play();
+            }
+
         }
 
         if (Input.GetKeyUp(KeyCode.A))
@@ -247,11 +264,13 @@ public class PlayerMoveScript : MonoBehaviour {
             if (Input.GetKey(KeyCode.D))
             {
                 xChange = 1;
+
             }
             else
             {
                 xChange = 0;
             }
+            
 
         }
         else if (Input.GetKeyUp(KeyCode.D))
@@ -265,11 +284,33 @@ public class PlayerMoveScript : MonoBehaviour {
             {
                 xChange = 0;
             }
+            
 
         }
 
+        if(isOnFloor && !isLaser && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+        {
+            sprite.enabled = false;
+            walkingSprite.enabled = true;
 
-
+            if (xChange == 1 && walkingSprite.flipX)
+            {
+                walkingSprite.flipX = !walkingSprite.flipX;
+            }
+            else if (xChange == -1 && !walkingSprite.flipX)
+            {
+                walkingSprite.flipX = !walkingSprite.flipX;
+            }
+        }
+        else
+        {
+            if (!isLaser)
+            {
+                sprite.enabled = true;
+            }
+            walkingSprite.enabled = false;
+        }
+        
 
         if (!isLaser)
         {
@@ -279,6 +320,9 @@ public class PlayerMoveScript : MonoBehaviour {
                 body.AddForce(new Vector2(0, jumpForce));
                 body.velocity = new Vector2(body.velocity.x, .01f);
             }
+
+           
+
         }
         
     }
