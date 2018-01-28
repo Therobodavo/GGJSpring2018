@@ -40,4 +40,14 @@ public class TriggerDoor : MonoBehaviour {
             //set image to unlocked
         }
     }
+
+    public void UncountLantern()
+    {
+        lanternCount--;
+        //play sound
+        if (lanternCount != 0)
+        {
+            //set image to locked
+        }
+    }
 }

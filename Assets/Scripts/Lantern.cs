@@ -7,6 +7,7 @@ public class Lantern : MonoBehaviour {
     public PlayerMoveScript script;
 
     public Sprite lit;
+    public Sprite unlit;
 
     public bool isLit;
 
@@ -44,13 +45,14 @@ public class Lantern : MonoBehaviour {
         TriggerDoor td = door.GetComponent<TriggerDoor>();
         td.CountLantern();
 
-        isLit = true;
-
         lightSound.Play();
     }
 
     private void Reset()
     {
         isLit = false;
+        gameObject.GetComponent<SpriteRenderer>().sprite = unlit;
+        TriggerDoor td = door.GetComponent<TriggerDoor>();
+        td.UncountLantern();
     }
 }
