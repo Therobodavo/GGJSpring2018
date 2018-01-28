@@ -29,15 +29,10 @@ public class Switch : MonoBehaviour {
             bool tState = trapdoor.GetComponent<Collider2D>().enabled;
 
             GetComponent<SpriteRenderer>().flipX = on;
-<<<<<<< HEAD
             trapdoor.GetComponent<Collider2D>().enabled = !tState;
             trapdoor.GetComponent<SpriteRenderer>().enabled = !tState;
-=======
-            trapdoor.GetComponent<Collider2D>().enabled = !on;
-            trapdoor.GetComponent<SpriteRenderer>().enabled = !on;
 
             switchSound.Play();
->>>>>>> 2e6f37607a7434ddc8163c4f29a80c22e0ab263f
         }
     }
 }

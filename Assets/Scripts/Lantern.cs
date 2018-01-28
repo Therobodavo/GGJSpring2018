@@ -12,8 +12,6 @@ public class Lantern : MonoBehaviour {
 
     public GameObject door;
 
-    private bool isLit;
-
     public AudioSource lightSound;
 
 	// Use this for initialization

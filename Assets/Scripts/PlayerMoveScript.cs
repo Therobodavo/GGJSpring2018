@@ -45,12 +45,8 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public SpriteRenderer sprite;
 
-<<<<<<< HEAD
-
     public SpriteRenderer walkingSprite;
-=======
     public AudioSource laserSound;
->>>>>>> 4aec4c440c33c7d0cc860c3d0e85de14b46ef66b
 
 	// Use this for initialization
 	void Start () {
