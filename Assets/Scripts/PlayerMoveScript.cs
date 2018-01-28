@@ -45,11 +45,12 @@ public class PlayerMoveScript : MonoBehaviour {
     public SpriteRenderer[] mirrorSprites;
 
     public SpriteRenderer sprite;
-
+    public SpriteRenderer death;
     public SpriteRenderer jumpSprite;
     public SpriteRenderer walkingSprite;
     public SpriteRenderer transSprite;
     public Animate tranAnimate;
+    public Animate deathAnimate;
 
     public bool transforming;
 
@@ -75,6 +76,7 @@ public class PlayerMoveScript : MonoBehaviour {
         GetAllMirrors();
         jumpSprite.enabled = false;
         transSprite.enabled = false;
+        death.enabled = false;
     }
 
     // Update is called once per frame
@@ -430,26 +432,37 @@ public void Die()
     {
         // Death animation
         if (isLaser) EndLaser(true);
-        velocity = 0;
-        body.velocity = new Vector2(0, 0);
-        transform.position = sPos;
+        death.enabled = true;
+        walkingSprite.enabled = false;
+        sprite.enabled = false;
+        jumpSprite.enabled = false;
+        deathAnimate.Timer = 0;
 
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("PushableBlock"))
+        if(deathAnimate.AniTime >= 9)
         {
-            PushableBlockScript script = obj.GetComponent<PushableBlockScript>();
-            script.Reset();
-        }
+            velocity = 0;
+            body.velocity = new Vector2(0, 0);
+            transform.position = sPos;
 
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Lantern"))
-        {
-            Lantern script = obj.GetComponent<Lantern>();
-            script.Reset();
-        }
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("PushableBlock"))
+            {
+                PushableBlockScript script = obj.GetComponent<PushableBlockScript>();
+                script.Reset();
+            }
 
-        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Switch"))
-        {
-            Switch script = obj.GetComponent<Switch>();
-            script.Reset();
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Lantern"))
+            {
+                Lantern script = obj.GetComponent<Lantern>();
+                script.Reset();
+            }
+
+            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Switch"))
+            {
+                Switch script = obj.GetComponent<Switch>();
+                script.Reset();
+            }
+
         }
+      
     }
 }
