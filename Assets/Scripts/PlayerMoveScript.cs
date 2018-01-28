@@ -246,65 +246,68 @@ public class PlayerMoveScript : MonoBehaviour {
     private void GetInput()
     {
 
-
-        if (Input.GetKeyDown(KeyCode.A))
+        if (!deathAnimate.deathTrans)
         {
-            xChange = -1;
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            xChange = 1;
-        }
-        else if (Input.GetKeyDown(KeyCode.Space) && !isLaser)
-        {
-            transforming = true;
-            tranAnimate.counter = 0;
-            sprite.enabled = false;
-            walkingSprite.enabled = false;
-            jumpSprite.enabled = false;
-            transSprite.enabled = true;
-            tranAnimate.transformer = true;
-            tranAnimate.scr = this;
-            tranAnimate.Timer = 0;
-
-
-        }
-
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                xChange = 1;
-
-            }
-            else
-            {
-                xChange = 0;
-            }
-
-
-        }
-        else if (Input.GetKeyUp(KeyCode.D))
-        {
-
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A))
             {
                 xChange = -1;
             }
-            else
+            else if (Input.GetKeyDown(KeyCode.D))
             {
-                xChange = 0;
+                xChange = 1;
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && !isLaser)
+            {
+                transforming = true;
+
+                sprite.enabled = false;
+                walkingSprite.enabled = false;
+                jumpSprite.enabled = false;
+                transSprite.enabled = true;
+                tranAnimate.transformer = true;
+                tranAnimate.scr = this;
+                tranAnimate.Timer = 0;
+
+
             }
 
+            if (Input.GetKeyUp(KeyCode.A))
+            {
 
+                if (Input.GetKey(KeyCode.D))
+                {
+                    xChange = 1;
+
+                }
+                else
+                {
+                    xChange = 0;
+                }
+
+
+            }
+            else if (Input.GetKeyUp(KeyCode.D))
+            {
+
+                if (Input.GetKey(KeyCode.A))
+                {
+                    xChange = -1;
+                }
+                else
+                {
+                    xChange = 0;
+                }
+
+
+            }
         }
+        
 
 
 
-        if (!transforming)
+        if (!transforming && !deathAnimate.deathTrans)
         {
-            if (isOnFloor && !isLaser && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+            if (isOnFloor && !isLaser  && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
             {
                 sprite.enabled = false;
                 walkingSprite.enabled = true;
@@ -437,32 +440,43 @@ public void Die()
         sprite.enabled = false;
         jumpSprite.enabled = false;
         deathAnimate.Timer = 0;
-
-        if(deathAnimate.AniTime >= 9)
+        deathAnimate.scr = this;
+        velocity = 0;
+        body.velocity = new Vector2(0, 0);
+        if (deathAnimate.AniTime >= 8)
         {
-            velocity = 0;
-            body.velocity = new Vector2(0, 0);
-            transform.position = sPos;
 
-            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("PushableBlock"))
-            {
-                PushableBlockScript script = obj.GetComponent<PushableBlockScript>();
-                script.Reset();
-            }
-
-            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Lantern"))
-            {
-                Lantern script = obj.GetComponent<Lantern>();
-                script.Reset();
-            }
-
-            foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Switch"))
-            {
-                Switch script = obj.GetComponent<Switch>();
-                script.Reset();
-            }
+            deathAnimate.deathTrans = true;
 
         }
       
     }
+
+    public void restart()
+    {
+        transform.position = sPos;
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("PushableBlock"))
+        {
+            PushableBlockScript script = obj.GetComponent<PushableBlockScript>();
+            script.Reset();
+        }
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Lantern"))
+        {
+            Lantern script = obj.GetComponent<Lantern>();
+            script.Reset();
+        }
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Switch"))
+        {
+            Switch script = obj.GetComponent<Switch>();
+            script.Reset();
+        }
+
+
+        death.enabled = false;
+    }
+
 }
+

@@ -9,12 +9,12 @@ public class Animate : MonoBehaviour {
     public Sprite[] Animations; // holds each sprite
     public float Timer; // timer to change sprite
     public int AniTime; //specfic timer that controls frames
-    public int counter;
 
     public bool repeat;
     public float length;
 
     public bool transformer;
+    public bool deathTrans;
 
     public PlayerMoveScript scr;
     // Use this for initialization
@@ -46,7 +46,17 @@ public class Animate : MonoBehaviour {
             }
 
         }
-        counter++;
+        else if (deathTrans)
+        {
+            Timer += 0.2f;
+            if (AniTime == Animations.Length + 1)
+            {
+                Timer = 0;
+                scr.restart();
+               deathTrans = false;
+            }
+        }
+        
 
         AniTime = (int)Mathf.Round(Timer);
         if (AniTime >= Animations.Length - 1)
