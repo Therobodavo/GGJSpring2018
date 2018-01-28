@@ -16,6 +16,7 @@ TagManager:
   - Lantern
   - Switch
   - Trapdoor
+  - Spike
   layers:
   - Default
   - TransparentFX

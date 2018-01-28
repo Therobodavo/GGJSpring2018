@@ -133,7 +133,7 @@ public class Laser : MonoBehaviour {
                     }
                     if (yChange == -1)
                     {
-                        xChange = 1;
+                        xChange = -1;
                         yChange = 0;
                         transform.eulerAngles = new Vector3(0, 0, 0);
                         return;
@@ -218,6 +218,8 @@ public class Laser : MonoBehaviour {
             float dimy = player.GetComponent<Collider2D>().bounds.size.y / 2.0f;
             print(dimy);
             player.transform.position = new Vector2(player.transform.position.x - dimx * (float)xChange, player.transform.position.y - dimy * (float)yChange);
+            if(other.tag == "Spike")
+            script.Die();
         }
     }
 }
