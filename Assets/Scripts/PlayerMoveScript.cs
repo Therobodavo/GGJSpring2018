@@ -167,9 +167,9 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             isOnFloor = false;
         }
-        if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .1f), -Vector3.right, maxMoveDistance, layer) ||
+        if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .2f), -Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .5f * playerCollider.bounds.size.y), -Vector3.right, maxMoveDistance, layer) ||
-            Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + playerCollider.bounds.size.y - .1f), -Vector3.right, maxMoveDistance, layer))
+            Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + playerCollider.bounds.size.y - .2f), -Vector3.right, maxMoveDistance, layer))
         {
             print("left");
             if (!leftBlock)
@@ -182,9 +182,9 @@ public class PlayerMoveScript : MonoBehaviour {
             leftBlock = false;
         }
         //print(playerCollider.bounds.size.x);
-        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + .1f), Vector3.right, maxMoveDistance, layer) ||
+        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + .2f), Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + .5f * playerCollider.bounds.size.y), Vector3.right, maxMoveDistance, layer) ||
-            Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + playerCollider.bounds.size.y - .1f), Vector3.right, maxMoveDistance, layer))
+            Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + playerCollider.bounds.size.y - .2f), Vector3.right, maxMoveDistance, layer))
         {
             print("right");
             if (!rightBlock)
