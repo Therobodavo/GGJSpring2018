@@ -7,6 +7,9 @@ public class TriggerDoor : MonoBehaviour {
 
     public string newScene;
 
+    public Sprite open;
+    public Sprite closed;
+
     public int lanternCount;
 	// Use this for initialization
 	void Start () {
@@ -21,8 +24,11 @@ public class TriggerDoor : MonoBehaviour {
     {
         if(other.collider.gameObject.tag == "Player" && lanternCount == 0)
         {
-            SceneManager.LoadScene(newScene);
-            other.collider.gameObject.GetComponent<PlayerMoveScript>().GetAllMirrors();
+            if (!other.collider.GetComponent<PlayerMoveScript>().isLaser)
+            {
+                SceneManager.LoadScene(newScene);
+                other.collider.gameObject.GetComponent<PlayerMoveScript>().GetAllMirrors();
+            }
         }
     }
     private void OnTriggerExit(Collider other)
@@ -37,17 +43,17 @@ public class TriggerDoor : MonoBehaviour {
         if(lanternCount == 0)
         {
             //play sound
-            //set image to unlocked
+            GetComponent<SpriteRenderer>().sprite = open;
         }
     }
 
     public void UncountLantern()
     {
-        lanternCount--;
+        lanternCount++;
         //play sound
         if (lanternCount != 0)
         {
-            //set image to locked
+            GetComponent<SpriteRenderer>().sprite = closed;
         }
     }
 }

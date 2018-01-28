@@ -19,13 +19,13 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4671564691746182}
-  - component: {fileID: 212338265353465924}
   - component: {fileID: 61600564917918096}
   - component: {fileID: 114444849613088544}
   - component: {fileID: 50231477473637086}
+  - component: {fileID: 212683507070212110}
   m_Layer: 0
   m_Name: pushableBlock
-  m_TagString: Untagged
+  m_TagString: PushableBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1158470362588008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.7780564, y: -2.3698118, z: 0}
-  m_LocalScale: {x: 2.4146843, y: 3.2020674, z: 1}
+  m_LocalPosition: {x: 6, y: -11, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -79,14 +79,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 0.5}
-    newSize: {x: 1, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 0.5, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!114 &114444849613088544
 MonoBehaviour:
@@ -99,14 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05151244ab882ae4cad76bbb94948b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSprite: {fileID: 0}
-  blockSprite: {fileID: 212338265353465924}
-  pushSpeed: 5
+  playerSprite: {fileID: 21300000, guid: 4bf51ad2224704d439a0ad5f286671aa, type: 3}
+  blockSprite: {fileID: 212683507070212110}
+  pushSpeed: 1
   pushStartTime: 0
   maxMoveDistance: 0.02
   pushed: 0
   xChange: 0
---- !u!212 &212338265353465924
+  sPos: {x: 0, y: 0, z: 0}
+--- !u!212 &212683507070212110
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -120,7 +121,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -140,12 +141,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: aeab063343412c344b7f523ef3750c1c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a6780f5dbe5ea0e4a828842a5f8be227, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.5}
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

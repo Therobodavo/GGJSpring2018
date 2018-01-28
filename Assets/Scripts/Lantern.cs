@@ -18,7 +18,7 @@ public class Lantern : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         door = GameObject.FindGameObjectWithTag("Door");
-
+        door.GetComponent<TriggerDoor>().UncountLantern();
         isLit = false;
 	}
 	
@@ -48,7 +48,7 @@ public class Lantern : MonoBehaviour {
         lightSound.Play();
     }
 
-    private void Reset()
+    public void Reset()
     {
         isLit = false;
         gameObject.GetComponent<SpriteRenderer>().sprite = unlit;

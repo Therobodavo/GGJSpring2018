@@ -12,6 +12,9 @@ TagManager:
   - Laser
   - MenuMusic
   - GameMusic
+  - PushableBlock
+  - Lantern
+  - Switch
   layers:
   - Default
   - TransparentFX

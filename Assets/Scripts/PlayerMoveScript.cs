@@ -19,7 +19,7 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public LayerMask layer;
 
-    //playeer start position
+    //player start position
     public Vector3 sPos;
 
     public bool isOnFloor;
@@ -69,10 +69,7 @@ public class PlayerMoveScript : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (isLaser) EndLaser(true);
-            velocity = 0;
-            body.velocity = new Vector2(0, 0);
-            transform.position = sPos;
+            Die();
         }
 
         GetInput();
@@ -131,12 +128,10 @@ public class PlayerMoveScript : MonoBehaviour {
 
     private void CheckColliders()
     {
-        print(playerCollider.bounds.size.x);
         if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x - .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) || 
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x + .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, maxLandDistance, layer))
         {
-            print("hi");
             if (!isOnFloor)
             {
                 isOnFloor = true;
@@ -154,7 +149,6 @@ public class PlayerMoveScript : MonoBehaviour {
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .5f * playerCollider.bounds.size.y), -Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + playerCollider.bounds.size.y - .1f), -Vector3.right, maxMoveDistance, layer))
         {
-            print("left");
             if (!leftBlock)
             {
                 leftBlock = true;
@@ -169,7 +163,6 @@ public class PlayerMoveScript : MonoBehaviour {
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + .5f * playerCollider.bounds.size.y), Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + playerCollider.bounds.size.y - .1f), Vector3.right, maxMoveDistance, layer))
         {
-            print("right");
             if (!rightBlock)
             {
                 rightBlock = true;
@@ -363,5 +356,32 @@ public class PlayerMoveScript : MonoBehaviour {
     private void Move(float dT)
     {
         transform.Translate(velocity * dT, 0, 0);
+    }
+
+    public void Die()
+    {
+        // Death animation
+        if (isLaser) EndLaser(true);
+        velocity = 0;
+        body.velocity = new Vector2(0, 0);
+        transform.position = sPos;
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("PushableBlock"))
+        {
+            PushableBlockScript script = obj.GetComponent<PushableBlockScript>();
+            script.Reset();
+        }
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Lantern"))
+        {
+            Lantern script = obj.GetComponent<Lantern>();
+            script.Reset();
+        }
+
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Switch"))
+        {
+            Switch script = obj.GetComponent<Switch>();
+            script.Reset();
+        }
     }
 }

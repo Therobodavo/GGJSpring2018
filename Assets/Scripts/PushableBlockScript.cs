@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PushableBlockScript : MonoBehaviour {
 
-    public Collider2D playerSprite;
+    public Sprite playerSprite;
     public SpriteRenderer blockSprite;
     public float pushSpeed;
     public float pushStartTime;
@@ -17,12 +17,15 @@ public class PushableBlockScript : MonoBehaviour {
     private bool leftBlock;
     private bool rightBlock;
 
-	// Use this for initialization
-	void Start () {
+    public Vector3 sPos;
+
+    // Use this for initialization
+    void Start () {
         leftBlock = false;
         rightBlock = false;
         pushed = false;
         sincePush = 0;
+        sPos = transform.position;
 	}
 
     // Update is called once per frame
@@ -123,5 +126,10 @@ public class PushableBlockScript : MonoBehaviour {
         {
             transform.Translate(xChange * pushSpeed * Time.deltaTime, 0, 0);
         }
+    }
+
+    public void Reset()
+    {
+        transform.position = sPos;
     }
 }

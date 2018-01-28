@@ -22,9 +22,7 @@ public class Spikes : MonoBehaviour {
 
         if (!pScript.isLaser)
         {
-            pScript.transform.position = pScript.sPos;
-            pScript.velocity = 0;
-            pScript.body.velocity = Vector2.zero;
+            pScript.Die();
         }
         
     }
