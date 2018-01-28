@@ -10,6 +10,8 @@ public class TriggerDoor : MonoBehaviour {
     public Sprite open;
     public Sprite closed;
 
+    public bool restart;
+
     public int lanternCount;
 	// Use this for initialization
 	void Start () {
@@ -26,6 +28,12 @@ public class TriggerDoor : MonoBehaviour {
         {
             if (!other.collider.GetComponent<PlayerMoveScript>().isLaser)
             {
+                if (restart)
+                {
+                    other.collider.transform.position = other.collider.GetComponent<PlayerMoveScript>().sPos;
+                    return;
+                }
+
                 SceneManager.LoadScene(newScene);
                 other.collider.gameObject.GetComponent<PlayerMoveScript>().GetAllMirrors();
             }
