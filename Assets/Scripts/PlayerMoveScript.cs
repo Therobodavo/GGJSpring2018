@@ -45,8 +45,12 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public SpriteRenderer sprite;
 
+<<<<<<< HEAD
 
     public SpriteRenderer walkingSprite;
+=======
+    public AudioSource laserSound;
+>>>>>>> 4aec4c440c33c7d0cc860c3d0e85de14b46ef66b
 
 	// Use this for initialization
 	void Start () {
@@ -122,6 +126,11 @@ public class PlayerMoveScript : MonoBehaviour {
         sprite.enabled = true;
         playerCollider.enabled = true;
         laser.SetActive(false);
+
+        if (laserSound.isPlaying)
+        {
+            laserSound.Stop();
+        }
     }
 
     private void CheckColliders()
@@ -242,6 +251,11 @@ public class PlayerMoveScript : MonoBehaviour {
             playerCollider.enabled = false;
             laser.SetActive(true);
             laser.GetComponent<SpriteRenderer>().sprite = laser1;
+
+            if (!laserSound.isPlaying)
+            {
+                laserSound.Play();
+            }
 
         }
 

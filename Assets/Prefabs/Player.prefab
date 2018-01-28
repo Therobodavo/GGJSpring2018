@@ -58,9 +58,13 @@ GameObject:
   - component: {fileID: 212593252379782300}
   - component: {fileID: 61061156796816304}
   - component: {fileID: 114439906475554584}
+<<<<<<< HEAD
+=======
+  - component: {fileID: 82358429145741232}
+>>>>>>> 4aec4c440c33c7d0cc860c3d0e85de14b46ef66b
   m_Layer: 2
   m_Name: laser2
-  m_TagString: Untagged
+  m_TagString: Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,6 +180,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 13.274986, y: 31.19689}
   m_EdgeRadius: 0
+<<<<<<< HEAD
 --- !u!114 &114242695709881362
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,6 +205,88 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8889417cd51b107419aaa609536825bd, type: 3}
   Timer: 0
   AniTime: 0
+=======
+--- !u!82 &82358429145741232
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1703355762802612}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 83107ddb22a1a5a488382c8e75208812, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+>>>>>>> 4aec4c440c33c7d0cc860c3d0e85de14b46ef66b
 --- !u!114 &114439906475554584
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,7 +343,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   sprite: {fileID: 212301431061697768}
+<<<<<<< HEAD
   walkingSprite: {fileID: 212836500001091072}
+=======
+  laserSound: {fileID: 82358429145741232}
+>>>>>>> 4aec4c440c33c7d0cc860c3d0e85de14b46ef66b
 --- !u!212 &212301431061697768
 SpriteRenderer:
   m_ObjectHideFlags: 1
