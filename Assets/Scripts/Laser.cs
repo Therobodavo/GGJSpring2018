@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Laser : MonoBehaviour {
-
     public PlayerMoveScript script;
+    public Animate animatiated;
+    public SpriteRenderer lightBall;
+    public SpriteRenderer lightBeam;
+
+
     public GameObject player;
     public float laserSpeed;
 
@@ -12,19 +16,29 @@ public class Laser : MonoBehaviour {
     private float yChange;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        lightBall.enabled = false;
+        lightBeam.enabled = false;
         
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!script.isLaser)
+        {
+            lightBall.enabled = false;
+        }
         if (script.isLaser)
         {
             float dT = Time.deltaTime;
 
             if (!script.isFired)
             {
+                lightBall.enabled = true;
+                lightBeam.enabled = false;
+
                 if (Input.GetKeyDown(KeyCode.A))
                 {
                     SetFired();
@@ -61,13 +75,20 @@ public class Laser : MonoBehaviour {
             else
             {
                 player.transform.position = new Vector2(player.transform.position.x + xChange * laserSpeed * dT, player.transform.position.y + yChange * laserSpeed * dT);
+                lightBall.enabled = false;
             }
         }
-	}
+        else
+        {
+            lightBeam.enabled = true;
+            lightBall.enabled = false;
+        }
+    }
 
     private void SetFired()
     {
-        GetComponent<SpriteRenderer>().sprite = script.laser2;
+        lightBall.enabled = false;
+        lightBeam.enabled = true;
         script.isFired = true;
 
         if (script.laserSound.isPlaying)
@@ -78,19 +99,20 @@ public class Laser : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Mirror"){
-            int rotation = (int) other.transform.eulerAngles.z;
+        if (other.tag == "Mirror")
+        {
+            int rotation = (int)other.transform.eulerAngles.z;
             switch (rotation)
             {
                 case 0:
-                    if(xChange == -1)
+                    if (xChange == -1)
                     {
                         xChange = 0;
                         yChange = 1;
                         transform.eulerAngles = new Vector3(0, 0, 90);
                         return;
                     }
-                    if(yChange == -1)
+                    if (yChange == -1)
                     {
                         xChange = 1;
                         yChange = 0;
@@ -99,14 +121,14 @@ public class Laser : MonoBehaviour {
                     }
                     break;
                 case 90:
-                    if(xChange == 1)
+                    if (xChange == 1)
                     {
                         xChange = 0;
                         yChange = 1;
                         transform.eulerAngles = new Vector3(0, 0, 90);
                         return;
                     }
-                    if(yChange == -1)
+                    if (yChange == -1)
                     {
                         xChange = 1;
                         yChange = 0;
@@ -115,14 +137,14 @@ public class Laser : MonoBehaviour {
                     }
                     break;
                 case 180:
-                    if(xChange == 1)
+                    if (xChange == 1)
                     {
                         xChange = 0;
                         yChange = -1;
                         transform.eulerAngles = new Vector3(0, 0, 90);
                         return;
                     }
-                    if(yChange == 1)
+                    if (yChange == 1)
                     {
                         xChange = -1;
                         yChange = 0;
@@ -131,14 +153,14 @@ public class Laser : MonoBehaviour {
                     }
                     break;
                 case 270:
-                    if(xChange == -1)
+                    if (xChange == -1)
                     {
                         xChange = 0;
                         yChange = -1;
                         transform.eulerAngles = new Vector3(0, 0, 90);
                         return;
                     }
-                    if(yChange == 1)
+                    if (yChange == 1)
                     {
                         xChange = 1;
                         yChange = 0;
@@ -148,9 +170,9 @@ public class Laser : MonoBehaviour {
                     break;
             }
         }
-        if(other.tag == "OneWayGlass")
+        if (other.tag == "OneWayGlass")
         {
-            switch((int)other.transform.eulerAngles.z)
+            switch ((int)other.transform.eulerAngles.z)
             {
                 case 0:
                     if (xChange == -1)
@@ -160,21 +182,21 @@ public class Laser : MonoBehaviour {
 
                     break;
                 case 90:
-                    if(yChange == -1)
+                    if (yChange == -1)
                     {
                         return;
                     }
 
                     break;
                 case 180:
-                    if(xChange == 1)
+                    if (xChange == 1)
                     {
                         return;
                     }
 
                     break;
                 case 270:
-                    if(yChange == 1)
+                    if (yChange == 1)
                     {
                         return;
                     }
@@ -185,12 +207,14 @@ public class Laser : MonoBehaviour {
                     break;
             }
         }
-        if(other.tag != "Transparent" && other.tag != "Lantern" && other.tag != "Door")
+        if (other.tag != "Transparent")
         {
             script.EndLaser(true);
             float dimx = player.GetComponent<Collider2D>().bounds.size.x / 2.0f;
+            print(script.sprite.bounds.size.x);
             float dimy = player.GetComponent<Collider2D>().bounds.size.y / 2.0f;
-            player.transform.position = new Vector2(player.transform.position.x - dimx * (float) xChange, player.transform.position.y - dimy * (float) yChange);
+            print(dimy);
+            player.transform.position = new Vector2(player.transform.position.x - dimx * (float)xChange, player.transform.position.y - dimy * (float)yChange);
         }
     }
 }

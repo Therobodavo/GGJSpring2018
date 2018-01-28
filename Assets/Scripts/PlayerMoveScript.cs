@@ -19,7 +19,10 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public LayerMask layer;
 
-    //player start position
+
+    bool directionLeft;
+
+    //playeer start position
     public Vector3 sPos;
 
     public bool isOnFloor;
@@ -29,9 +32,7 @@ public class PlayerMoveScript : MonoBehaviour {
     public bool isFired;
     public int canLaser = 1;
 
-    public Sprite laser1;
-    public Sprite laser2;
-
+    public SpriteRenderer laserBall;
     public GameObject laser;
 
     public Vector2 savedVelocity;
@@ -45,11 +46,19 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public SpriteRenderer sprite;
 
+    public SpriteRenderer jumpSprite;
     public SpriteRenderer walkingSprite;
+    public SpriteRenderer transSprite;
+    public Animate tranAnimate;
+
+    public bool transforming;
+
+
     public AudioSource laserSound;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         xChange = 0;
         isOnFloor = false;
 
@@ -58,18 +67,26 @@ public class PlayerMoveScript : MonoBehaviour {
         laser.SetActive(false);
 
         sPos = transform.position;
-
+        isLaser = false;
+        isFired = false;
+        
         mirrors = new GameObject[0];
         mirrorSprites = new SpriteRenderer[0];
         GetAllMirrors();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        jumpSprite.enabled = false;
+        transSprite.enabled = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Die();
+            if (isLaser) EndLaser(true);
+            velocity = 0;
+            body.velocity = new Vector2(0, 0);
+            transform.position = sPos;
         }
 
         GetInput();
@@ -84,15 +101,17 @@ public class PlayerMoveScript : MonoBehaviour {
             Accelerate(dT);
 
             Move(dT);
+
+            laserBall.enabled = false;
         }
         else
         {
-            if(!isFired && Input.GetKeyUp(KeyCode.Space))
+            if (!isFired && Input.GetKeyUp(KeyCode.Space))
             {
                 EndLaser(false);
             }
         }
-	}
+    }
 
     public void GetAllMirrors()
     {
@@ -109,6 +128,7 @@ public class PlayerMoveScript : MonoBehaviour {
     {
         isLaser = false;
         isFired = false;
+        transforming = false;
         body.gravityScale = 1.5f;
         if (!wall) body.velocity = savedVelocity;
         else
@@ -128,10 +148,12 @@ public class PlayerMoveScript : MonoBehaviour {
 
     private void CheckColliders()
     {
-        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x - .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) || 
+        print(playerCollider.bounds.size.x);
+        if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x - .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x + .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, maxLandDistance, layer))
         {
+            print("hi");
             if (!isOnFloor)
             {
                 isOnFloor = true;
@@ -149,6 +171,7 @@ public class PlayerMoveScript : MonoBehaviour {
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .5f * playerCollider.bounds.size.y), -Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + playerCollider.bounds.size.y - .1f), -Vector3.right, maxMoveDistance, layer))
         {
+            print("left");
             if (!leftBlock)
             {
                 leftBlock = true;
@@ -163,6 +186,7 @@ public class PlayerMoveScript : MonoBehaviour {
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + .5f * playerCollider.bounds.size.y), Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + playerCollider.bounds.size.y - .1f), Vector3.right, maxMoveDistance, layer))
         {
+            print("right");
             if (!rightBlock)
             {
                 rightBlock = true;
@@ -178,7 +202,7 @@ public class PlayerMoveScript : MonoBehaviour {
             switch ((int)mirrors[i].transform.eulerAngles.z)
             {
                 case 0:
-                    if(mirrorSprites[i].bounds.min.x > playerCollider.bounds.min.x && mirrorSprites[i].bounds.min.x < playerCollider.bounds.max.x)
+                    if (mirrorSprites[i].bounds.min.x > playerCollider.bounds.min.x && mirrorSprites[i].bounds.min.x < playerCollider.bounds.max.x)
                     {
                         if (mirrorSprites[i].bounds.max.y < playerCollider.bounds.min.y && mirrorSprites[i].bounds.max.y + 10 * maxLandDistance > playerCollider.bounds.min.y)
                         {
@@ -213,7 +237,7 @@ public class PlayerMoveScript : MonoBehaviour {
                     break;
             }
 
-            
+
         }
     }
 
@@ -229,27 +253,24 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             xChange = 1;
         }
-        else if (canLaser == 0 && Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) && !isLaser)
         {
-            isLaser = true;
-            canLaser = 5;
-            body.gravityScale = 0;
-            savedVelocity = body.velocity;
-            body.velocity = Vector2.zero;
+            transforming = true;
+            tranAnimate.counter = 0;
             sprite.enabled = false;
-            playerCollider.enabled = false;
-            laser.SetActive(true);
-            laser.GetComponent<SpriteRenderer>().sprite = laser1;
+            walkingSprite.enabled = false;
+            jumpSprite.enabled = false;
+            transSprite.enabled = true;
+            tranAnimate.transformer = true;
+            tranAnimate.scr = this;
+            tranAnimate.Timer = 0;
 
-            if (!laserSound.isPlaying)
-            {
-                laserSound.Play();
-            }
 
         }
 
         if (Input.GetKeyUp(KeyCode.A))
         {
+
             if (Input.GetKey(KeyCode.D))
             {
                 xChange = 1;
@@ -259,7 +280,7 @@ public class PlayerMoveScript : MonoBehaviour {
             {
                 xChange = 0;
             }
-            
+
 
         }
         else if (Input.GetKeyUp(KeyCode.D))
@@ -273,57 +294,102 @@ public class PlayerMoveScript : MonoBehaviour {
             {
                 xChange = 0;
             }
-            
+
 
         }
 
-        if(isOnFloor && !isLaser && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
-        {
-            sprite.enabled = false;
-            walkingSprite.enabled = true;
 
-            if (xChange == 1 && walkingSprite.flipX)
-            {
-                walkingSprite.flipX = !walkingSprite.flipX;
-            }
-            else if (xChange == -1 && !walkingSprite.flipX)
-            {
-                walkingSprite.flipX = !walkingSprite.flipX;
-            }
-        }
-        else
+
+        if (!transforming)
         {
+            if (isOnFloor && !isLaser && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)))
+            {
+                sprite.enabled = false;
+                walkingSprite.enabled = true;
+
+                if (xChange == 1 && walkingSprite.flipX && sprite.flipX)
+                {
+                    walkingSprite.flipX = !walkingSprite.flipX;
+                    sprite.flipX = !sprite.flipX;
+                    jumpSprite.flipX = !jumpSprite.flipX;
+                    transSprite.flipX = !transSprite.flipX;
+                }
+                else if (xChange == -1 && !walkingSprite.flipX && !sprite.flipX)
+                {
+                    walkingSprite.flipX = !walkingSprite.flipX;
+                    sprite.flipX = !sprite.flipX;
+                    jumpSprite.flipX = !jumpSprite.flipX;
+                    transSprite.flipX = !transSprite.flipX;
+
+                }
+            }
+            else
+            {
+                if (!isLaser)
+                {
+                    sprite.enabled = true;
+                }
+                walkingSprite.enabled = false;
+            }
+            if (isLaser)
+            {
+                jumpSprite.enabled = false;
+            }
+
             if (!isLaser)
             {
-                sprite.enabled = true;
+
+                if (body.velocity.y <= 0 && isOnFloor && Input.GetKey(KeyCode.W))
+                {
+                    body.AddForce(new Vector2(0, jumpForce));
+                    body.velocity = new Vector2(body.velocity.x, .01f);
+                }
+
+
+                if (!isOnFloor)
+                {
+                    sprite.enabled = false;
+                    jumpSprite.enabled = true;
+                }
+                else
+                {
+                    jumpSprite.enabled = false;
+                }
             }
-            walkingSprite.enabled = false;
         }
-        
 
-        if (!isLaser)
-        {
 
-            if (body.velocity.y <= 0 && isOnFloor && Input.GetKey(KeyCode.W))
-            {
-                body.AddForce(new Vector2(0, jumpForce));
-                body.velocity = new Vector2(body.velocity.x, .01f);
-            }
-
-           
-
-        }
-        
     }
+
+    public void TurnLaser()
+    {
+        transSprite.enabled = false;
+        transforming = false;
+        isLaser = true;
+        canLaser = 5;
+        playerCollider.enabled = false;
+        laser.SetActive(true);
+        body.gravityScale = 0;
+        savedVelocity = body.velocity;
+        body.velocity = Vector2.zero;
+
+
+        if (!laserSound.isPlaying)
+        {
+            laserSound.Play();
+        }
+    }
+
+
 
     private void Accelerate(float dT)
     {
-        if(xChange == -1 && leftBlock && velocity < 0)
+        if (xChange == -1 && leftBlock && velocity < 0)
         {
             velocity = 0;
             return;
         }
-        if(xChange == 1 && rightBlock && velocity > 0)
+        if (xChange == 1 && rightBlock && velocity > 0)
         {
             velocity = 0;
             return;
@@ -347,7 +413,7 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             velocity += xChange * airAccel * dT;
         }
-        if(Math.Abs(velocity) > maxSpeed)
+        if (Math.Abs(velocity) > maxSpeed)
         {
             velocity = maxSpeed * velocity / Math.Abs(velocity);
         }
@@ -358,7 +424,9 @@ public class PlayerMoveScript : MonoBehaviour {
         transform.Translate(velocity * dT, 0, 0);
     }
 
-    public void Die()
+
+
+public void Die()
     {
         // Death animation
         if (isLaser) EndLaser(true);
