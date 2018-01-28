@@ -26,7 +26,8 @@ public class PushableBlockScript : MonoBehaviour {
         pushed = false;
         sincePush = 0;
         sPos = transform.position;
-	}
+        playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+    }
 
     // Update is called once per frame
     void Update()

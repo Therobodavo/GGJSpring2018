@@ -85,10 +85,7 @@ public class PlayerMoveScript : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-            if (isLaser) EndLaser(true);
-            velocity = 0;
-            body.velocity = new Vector2(0, 0);
-            transform.position = sPos;
+            Die();
         }
 
         GetInput();

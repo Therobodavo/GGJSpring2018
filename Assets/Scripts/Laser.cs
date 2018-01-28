@@ -210,7 +210,7 @@ public class Laser : MonoBehaviour {
                     break;
             }
         }
-        if (other.tag != "Transparent")
+        if (other.tag != "Transparent" && other.tag != "Lantern")
         {
             script.EndLaser(true);
             float dimx = player.GetComponent<Collider2D>().bounds.size.x / 2.0f;
