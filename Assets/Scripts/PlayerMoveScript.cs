@@ -115,7 +115,7 @@ public class PlayerMoveScript : MonoBehaviour {
 
     private void CheckColliders()
     {
-        Debug.DrawLine(new Vector3(transform.position.x, transform.position.y, 0), new Vector3(transform.position.x, transform.position.y - .5f * playerCollider.bounds.size.y - .1f, 0));
+        print(playerCollider.bounds.size.x);
         if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x - .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) || 
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x + .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, maxLandDistance, layer))
@@ -134,7 +134,6 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             isOnFloor = false;
         }
-        Debug.DrawLine(new Vector3(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y - .5f * playerCollider.bounds.size.y + .2f, 0), new Vector3(transform.position.x - .5f * playerCollider.bounds.size.x - .01f - .01f, transform.position.y - .5f * playerCollider.bounds.size.y + .2f, 0));
         if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .1f), -Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .5f * playerCollider.bounds.size.y), -Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + playerCollider.bounds.size.y - .1f), -Vector3.right, maxMoveDistance, layer))

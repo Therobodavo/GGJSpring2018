@@ -1081,6 +1081,18 @@ Prefab:
       propertyPath: maxLandDistance
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4063610996118660, guid: 26387482c6bfd0448b725e0a65f0036d, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.071243554
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063610996118660, guid: 26387482c6bfd0448b725e0a65f0036d, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.071243525
+      objectReference: {fileID: 0}
+    - target: {fileID: 4063610996118660, guid: 26387482c6bfd0448b725e0a65f0036d, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 0.071243525
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 26387482c6bfd0448b725e0a65f0036d, type: 2}
   m_IsPrefabParent: 0

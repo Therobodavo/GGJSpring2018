@@ -183,12 +183,13 @@ public class Laser : MonoBehaviour {
         }
         if(other.tag != "Transparent")
         {
-            float dimx = script.sprite.bounds.size.x / 2.0f;
-            print(dimx);
-            float dimy = script.sprite.bounds.size.y / 2.0f;
+            script.EndLaser(true);
+            float dimx = player.GetComponent<Collider2D>().bounds.size.x / 2.0f;
+            print(script.sprite.bounds.size.x);
+            float dimy = player.GetComponent<Collider2D>().bounds.size.y / 2.0f;
             print(dimy);
             player.transform.position = new Vector2(player.transform.position.x - dimx * (float) xChange, player.transform.position.y - dimy * (float) yChange);
-            script.EndLaser(true);
+
         }
     }
 }
