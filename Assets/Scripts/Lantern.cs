@@ -52,9 +52,9 @@ public class Lantern : MonoBehaviour {
 
     public void Reset()
     {
+        TriggerDoor td = door.GetComponent<TriggerDoor>();
+        if (isLit) td.UncountLantern();
         isLit = false;
         gameObject.GetComponent<SpriteRenderer>().sprite = unlit;
-        TriggerDoor td = door.GetComponent<TriggerDoor>();
-        td.UncountLantern();
     }
 }
