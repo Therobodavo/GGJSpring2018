@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Game Music Script
+//Used for singleton music class (For GAME ONLY)
+
 public class GameMusic : MonoBehaviour {
 
 	// Use this for initialization

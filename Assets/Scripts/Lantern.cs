@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Lantern class
+//Sets everything up for Lantern
+
 public class Lantern : MonoBehaviour {
-
+    
+    //References
     public PlayerMoveScript script;
-
     public Sprite lit;
     public Sprite unlit;
-
-    public bool isLit;
-
     public GameObject door;
-
     public AudioSource lightSound;
 
-	// Use this for initialization
+    //Variables
+    public bool isLit;
+
 	void Start () {
         door = GameObject.FindGameObjectWithTag("Door");
         door.GetComponent<TriggerDoor>().UncountLantern();
@@ -31,6 +32,7 @@ public class Lantern : MonoBehaviour {
 
     public void OnTriggerEnter2D(Collider2D other)
     {
+        //If player hits lantern when a laser
         if(other.tag == "Laser")
         {
             if (script.isLaser && !isLit)
@@ -40,6 +42,7 @@ public class Lantern : MonoBehaviour {
         }
     }
 
+    //Activate Lantern
     void Light()
     {
         isLit = true;
@@ -50,6 +53,7 @@ public class Lantern : MonoBehaviour {
         lightSound.Play();
     }
 
+    //Reset Lantern
     public void Reset()
     {
         TriggerDoor td = door.GetComponent<TriggerDoor>();

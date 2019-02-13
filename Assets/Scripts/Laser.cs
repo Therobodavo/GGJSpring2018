@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Laser script
+//Sets everything up for when the player is a laser
+
 public class Laser : MonoBehaviour {
     public PlayerMoveScript script;
     public Animate animatiated;
@@ -27,6 +30,7 @@ public class Laser : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //Change based on form and input
         if (!script.isLaser)
         {
             lightBall.enabled = false;
@@ -40,6 +44,7 @@ public class Laser : MonoBehaviour {
                 lightBall.enabled = true;
                 lightBeam.enabled = false;
 
+                //Set direction based on input
                 if (Input.GetKeyDown(KeyCode.A))
                 {
                     SetFired();
@@ -86,6 +91,7 @@ public class Laser : MonoBehaviour {
         }
     }
 
+    //Change after laser has been fired
     private void SetFired()
     {
         lightBall.enabled = false;
@@ -98,13 +104,17 @@ public class Laser : MonoBehaviour {
         }
     }
 
+    //Collisions
     private void OnTriggerEnter2D(Collider2D other)
     {
+        //When player hits a mirror
         if (other.tag == "Mirror")
         {
             hitMirror.mute = false;
             hitMirror.Play();
             int rotation = (int)other.transform.eulerAngles.z;
+
+            //Change direction based on mirror angle
             switch (rotation)
             {
                 case 0:

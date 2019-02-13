@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Animate Code
+//Manually sets up animation between images
+
 public class Animate : MonoBehaviour {
 
     //attributes
@@ -16,8 +19,9 @@ public class Animate : MonoBehaviour {
     public bool transformer;
     public bool deathTrans;
 
+    //Reference to Move Script
     public PlayerMoveScript scr;
-    // Use this for initialization
+
     void Start()
     {
 

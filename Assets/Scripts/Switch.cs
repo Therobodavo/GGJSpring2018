@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Switch class
+//Used for activating/deactivating switches
+
 public class Switch : MonoBehaviour {
 
+    //Variables used
     public GameObject trapdoor;
-
     public bool on;
 
+    //Sound file for activating switch
     public AudioSource switchSound;
 
     // Use this for initialization
@@ -20,8 +24,10 @@ public class Switch : MonoBehaviour {
 
     }
 
+
     public void OnTriggerStay2D(Collider2D other)
     {
+        //When player is pressing E and next to switch
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
             on = !on;
@@ -35,6 +41,7 @@ public class Switch : MonoBehaviour {
         }
     }
 
+    //Resets switch
     public void Reset()
     {
         if (on)

@@ -4,32 +4,33 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//Level Editor Script
+//Put together at the last second
+//Creates objects for the player so they can make their own level
+
+//Made by Douglas
+
 public class LevelEditorScript : MonoBehaviour {
 
+    //References
     public SpriteRenderer sprite;
     public GameObject currentPrefab;
-
     public GameObject player;
     public GameObject door;
-
     public GameObject currentTrapDoor;
-
     public List<GameObject> objects;
     public List<Vector3> objectLocs;
-
     public GameObject music;
-
     public Camera mainCam;
-    private float camWidth;
-    private float camHeight;
-
-    public List<GameObject> possiblePrefabs;
+        public List<GameObject> possiblePrefabs;
     private List<Sprite> possiblePrefabSprites;
 
     private List<List<GameObject>> menuObjects;
 
+    //Variables
+    private float camWidth;
+    private float camHeight;
     private bool menu;
-
     private bool playing;
 
     private KeyCode[] numKeyCodes = {

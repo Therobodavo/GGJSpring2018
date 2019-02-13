@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Door Script
+//Sets up door (locked/unlocked
+//Triggers when player is in opened door
+
 public class TriggerDoor : MonoBehaviour {
 
+    //Variables used
     public string newScene;
-
     public Sprite open;
     public Sprite closed;
-
     public bool restart;
-
     public int lanternCount;
 
+    //Sound for unlocking door
     public AudioSource doorUnlock;
-	// Use this for initialization
+
 	void Start () {
 		
 	}
@@ -24,8 +27,11 @@ public class TriggerDoor : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
+        //When player enters door and there are no lanterns
         if(other.collider.gameObject.tag == "Player" && lanternCount == 0)
         {
             if (!other.collider.GetComponent<PlayerMoveScript>().isLaser)
@@ -46,6 +52,7 @@ public class TriggerDoor : MonoBehaviour {
         //Do whatever you want
     }
 
+    //Gets # of needed lanterns
     public void CountLantern()
     {
         lanternCount--;

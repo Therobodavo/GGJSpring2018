@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Pushable Object Script
+//Allows player to push a cube around to create a new platform
+
 public class PushableBlockScript : MonoBehaviour {
 
+    //Variables Used
     public Collider2D playerCollider;
     public SpriteRenderer blockSprite;
     public float pushSpeed;
     public float pushStartTime;
     public float maxMoveDistance;
-
     private float sincePush;
     public bool pushed;
     public int xChange;
-
     private bool leftBlock;
     private bool rightBlock;
-
     public Vector3 sPos;
 
-    // Use this for initialization
     void Start () {
         leftBlock = false;
         rightBlock = false;
@@ -29,12 +29,12 @@ public class PushableBlockScript : MonoBehaviour {
         playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        //Uses raycasts to check which side of the box the player is on and pushing from
         if (Physics2D.Raycast(new Vector2(transform.position.x - .5f * blockSprite.bounds.size.x - .01f, transform.position.y + .1f), -Vector3.right, maxMoveDistance) ||
-    Physics2D.Raycast(new Vector2(transform.position.x - .5f * blockSprite.bounds.size.x - .01f, transform.position.y + .5f * blockSprite.bounds.size.y), -Vector3.right, maxMoveDistance) ||
-    Physics2D.Raycast(new Vector2(transform.position.x - .5f * blockSprite.bounds.size.x - .01f, transform.position.y + blockSprite.bounds.size.y - .1f), -Vector3.right, maxMoveDistance))
+            Physics2D.Raycast(new Vector2(transform.position.x - .5f * blockSprite.bounds.size.x - .01f, transform.position.y + .5f * blockSprite.bounds.size.y), -Vector3.right, maxMoveDistance) ||
+            Physics2D.Raycast(new Vector2(transform.position.x - .5f * blockSprite.bounds.size.x - .01f, transform.position.y + blockSprite.bounds.size.y - .1f), -Vector3.right, maxMoveDistance))
         {
             if (!leftBlock)
             {
@@ -45,7 +45,7 @@ public class PushableBlockScript : MonoBehaviour {
         {
             leftBlock = false;
         }
-        //print(blockSprite.bounds.size.x);
+
         if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * blockSprite.bounds.size.x + .01f, transform.position.y + .1f), Vector3.right, maxMoveDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * blockSprite.bounds.size.x + .01f, transform.position.y + .5f * blockSprite.bounds.size.y), Vector3.right, maxMoveDistance) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * blockSprite.bounds.size.x + .01f, transform.position.y + blockSprite.bounds.size.y - .1f), Vector3.right, maxMoveDistance))
@@ -122,7 +122,6 @@ public class PushableBlockScript : MonoBehaviour {
             sincePush = 0;
         }
 
-        //print(rightBlock);
         if(!(leftBlock && xChange == -1) && !(rightBlock && xChange == 1))
         {
             transform.Translate(xChange * pushSpeed * Time.deltaTime, 0, 0);

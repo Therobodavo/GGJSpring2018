@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Menu Music Script
+//Used for singleton music class (For MENU ONLY)
+
 public class MenuMusic : MonoBehaviour {
 
-	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		
 	}

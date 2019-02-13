@@ -57,7 +57,6 @@ public class PlayerMoveScript : MonoBehaviour {
 
     public AudioSource laserSound;
 
-    // Use this for initialization
     void Start()
     {
         xChange = 0;
@@ -79,10 +78,9 @@ public class PlayerMoveScript : MonoBehaviour {
         death.enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        //Check input
         if (Input.GetKeyDown(KeyCode.R))
         {
             Die();
@@ -90,7 +88,7 @@ public class PlayerMoveScript : MonoBehaviour {
 
         GetInput();
 
-
+        //Check player state (normal form or laser)
         if (!isLaser)
         {
             float dT = Time.deltaTime;
@@ -112,6 +110,7 @@ public class PlayerMoveScript : MonoBehaviour {
         }
     }
 
+    //Get reference to all mirrors in level
     public void GetAllMirrors()
     {
         mirrors = GameObject.FindGameObjectsWithTag("Mirror");
@@ -123,6 +122,7 @@ public class PlayerMoveScript : MonoBehaviour {
         }
     }
 
+    //Stop where the player is at when in laser form
     public void EndLaser(bool wall)
     {
         isLaser = false;
@@ -145,14 +145,13 @@ public class PlayerMoveScript : MonoBehaviour {
         }
     }
 
+    //Check all collisions
     private void CheckColliders()
     {
-        print(playerCollider.bounds.size.x);
         if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x - .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x + .05f, transform.position.y), -Vector3.up, maxLandDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), -Vector3.up, maxLandDistance, layer))
         {
-            print("hi");
             if (!isOnFloor)
             {
                 isOnFloor = true;
@@ -170,7 +169,6 @@ public class PlayerMoveScript : MonoBehaviour {
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + .5f * playerCollider.bounds.size.y), -Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x - .5f * playerCollider.bounds.size.x - .01f, transform.position.y + playerCollider.bounds.size.y - .2f), -Vector3.right, maxMoveDistance, layer))
         {
-            print("left");
             if (!leftBlock)
             {
                 leftBlock = true;
@@ -180,12 +178,10 @@ public class PlayerMoveScript : MonoBehaviour {
         {
             leftBlock = false;
         }
-        //print(playerCollider.bounds.size.x);
         if (Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + .2f), Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + .5f * playerCollider.bounds.size.y), Vector3.right, maxMoveDistance, layer) ||
             Physics2D.Raycast(new Vector2(transform.position.x + .5f * playerCollider.bounds.size.x, transform.position.y + playerCollider.bounds.size.y - .2f), Vector3.right, maxMoveDistance, layer))
         {
-            print("right");
             if (!rightBlock)
             {
                 rightBlock = true;
@@ -196,6 +192,7 @@ public class PlayerMoveScript : MonoBehaviour {
             rightBlock = false;
         }
 
+        //Check mirror collisions and where to go
         for (int i = 0; i < mirrors.Length; i++)
         {
             switch ((int)mirrors[i].transform.eulerAngles.z)
@@ -240,6 +237,7 @@ public class PlayerMoveScript : MonoBehaviour {
         }
     }
 
+    //Get user input
     private void GetInput()
     {
 
@@ -253,6 +251,7 @@ public class PlayerMoveScript : MonoBehaviour {
             {
                 xChange = 1;
             }
+            //Turn into laser
             else if (Input.GetKeyDown(KeyCode.Space) && !isLaser)
             {
                 transforming = true;
@@ -374,6 +373,7 @@ public class PlayerMoveScript : MonoBehaviour {
 
     }
 
+    //Turn into the laser
     public void TurnLaser()
     {
         transSprite.enabled = false;
@@ -390,7 +390,7 @@ public class PlayerMoveScript : MonoBehaviour {
     }
 
 
-
+    //Go faster
     private void Accelerate(float dT)
     {
         if (xChange == -1 && leftBlock && velocity < 0)
@@ -434,8 +434,8 @@ public class PlayerMoveScript : MonoBehaviour {
     }
 
 
-
-public void Die()
+    //Player Death
+    public void Die()
     {
         // Death animation
         if (isLaser) EndLaser(true);
@@ -456,6 +456,7 @@ public void Die()
       
     }
 
+    //Restart level
     public void restart()
     {
         transform.position = sPos;
